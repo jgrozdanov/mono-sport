@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>FoundWorkingCopyPaths</key>
+	<array/>
+	<key>LastWorkingCopyScanDate</key>
+	<date>2013-08-19T12:08:43Z</date>
+	<key>MissingFilePaths</key>
+	<array>
+		<string>/Users/dimitarilkov/dev/SportNetMobile/SportNet/obj/Xcode/2/MainStoryboard.storyboard</string>
+		<string>/Users/dimitarilkov/dev/SportNetMobile/SportNet/obj/Xcode/2/AppDelegate.h</string>
+	</array>
+	<key>Version</key>
+	<integer>4</integer>
+</dict>
+</plist>

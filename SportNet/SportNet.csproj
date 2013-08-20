@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F4C6F6F0-0EB0-497C-AEE7-98641ACA21A1}</ProjectGuid>
+    <ProjectTypeGuids>{6BC8ED88-2882-458C-8E55-DFD12B67127B};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>SportNet</RootNamespace>
+    <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
+    <AssemblyName>SportNet</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhoneSimulator\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <MtouchLink>None</MtouchLink>
+    <ConsolePause>false</ConsolePause>
+    <MtouchDebug>true</MtouchDebug>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhoneSimulator\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <MtouchLink>None</MtouchLink>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhone\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <MtouchDebug>true</MtouchDebug>
+    <ConsolePause>false</ConsolePause>
+    <CodesignKey>iPhone Developer</CodesignKey>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhone\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodesignKey>iPhone Developer</CodesignKey>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhone\Ad-Hoc</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodesignKey>iPhone Distribution</CodesignKey>
+    <BuildIpa>true</BuildIpa>
+    <ConsolePause>false</ConsolePause>
+    <CodesignProvision>Automatic:AdHoc</CodesignProvision>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|iPhone' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhone\AppStore</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodesignKey>iPhone Distribution</CodesignKey>
+    <ConsolePause>false</ConsolePause>
+    <CodesignProvision>Automatic:AppStore</CodesignProvision>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="monotouch" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Info.plist" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Main.cs" />
+    <Compile Include="AppDelegate.cs" />
+    <Compile Include="Lib\SlideoutNavigationController.cs" />
+    <Compile Include="MainTabController.cs" />
+    <Compile Include="NewsController.cs" />
+    <Compile Include="NewsController.designer.cs">
+      <DependentUpon>NewsController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewsDetailController.cs" />
+    <Compile Include="NewsDetailController.designer.cs">
+      <DependentUpon>NewsDetailController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewsControllerSource.cs" />
+    <Compile Include="NewsCell.cs" />
+    <Compile Include="NewsCellModel.cs" />
+    <Compile Include="FeaturedCell.cs" />
+    <Compile Include="MenuController.cs" />
+    <Compile Include="MenuController.designer.cs">
+      <DependentUpon>MenuController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MenuControllerSource.cs" />
+    <Compile Include="WelcomeController.cs" />
+    <Compile Include="WelcomeController.designer.cs">
+      <DependentUpon>WelcomeController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SignUpController.cs" />
+    <Compile Include="SignUpController.designer.cs">
+      <DependentUpon>SignUpController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoginController.cs" />
+    <Compile Include="LoginController.designer.cs">
+      <DependentUpon>LoginController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ForgotPasswordController.cs" />
+    <Compile Include="ForgotPasswordController.designer.cs">
+      <DependentUpon>ForgotPasswordController.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <InterfaceDefinition Include="MainStoryboard.storyboard" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\first.png" />
+    <BundleResource Include="Resources\first%402x.png" />
+    <BundleResource Include="Resources\second.png" />
+    <BundleResource Include="Resources\second%402x.png" />
+    <BundleResource Include="Assets\navbar%402x.png" />
+    <BundleResource Include="Assets\logo%402x.png" />
+    <BundleResource Include="Assets\menu%402x.png" />
+    <BundleResource Include="Assets\back%402x.png" />
+    <BundleResource Include="Assets\tabbar%402x.png" />
+    <BundleResource Include="Assets\tabselection%402x.png" />
+    <BundleResource Include="Assets\pictures-active%402x.png" />
+    <BundleResource Include="Assets\pictures%402x.png" />
+    <BundleResource Include="Assets\news%402x.png" />
+    <BundleResource Include="Assets\news-active%402x.png" />
+    <BundleResource Include="Assets\video%402x.png" />
+    <BundleResource Include="Assets\video-active%402x.png" />
+    <BundleResource Include="Assets\article-pic.jpg" />
+    <BundleResource Include="Assets\profile%402x.png" />
+    <BundleResource Include="Assets\addcontent%402x.png" />
+    <BundleResource Include="Assets\buttonlong%402x.png" />
+    <BundleResource Include="Assets\wall%402x.png" />
+    <BundleResource Include="Assets\buttonlongwhite%402x.png" />
+    <BundleResource Include="Assets\profilebig%402x.png" />
+    <BundleResource Include="Assets\choose%402x.png" />
+    <BundleResource Include="Assets\facebook%402x.png" />
+    <BundleResource Include="Assets\google%402x.png" />
+    <BundleResource Include="Assets\input%402x.png" />
+    <BundleResource Include="Assets\twitter%402x.png" />
+    <BundleResource Include="Assets\facebookclean%402x.png" />
+    <BundleResource Include="Assets\googleclean%402x.png" />
+    <BundleResource Include="Assets\twitterclean%402x.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Lib\" />
+    <Folder Include="Assets\" />
+  </ItemGroup>
+</Project>
