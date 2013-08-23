@@ -3,14 +3,13 @@
 <plist version="1.0">
 <dict>
 	<key>FoundWorkingCopyPaths</key>
-	<array/>
-	<key>LastWorkingCopyScanDate</key>
-	<date>2013-08-19T12:08:43Z</date>
-	<key>MissingFilePaths</key>
 	<array>
-		<string>/Users/dimitarilkov/dev/SportNetMobile/SportNet/obj/Xcode/2/MainStoryboard.storyboard</string>
-		<string>/Users/dimitarilkov/dev/SportNetMobile/SportNet/obj/Xcode/2/AppDelegate.h</string>
+		<string>/Users/dani/dev/SportNetMobile</string>
 	</array>
+	<key>LastWorkingCopyScanDate</key>
+	<date>2013-08-21T09:09:57Z</date>
+	<key>MissingFilePaths</key>
+	<array/>
 	<key>Version</key>
 	<integer>4</integer>
 </dict>

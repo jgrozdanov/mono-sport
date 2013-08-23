@@ -41,10 +41,16 @@ namespace SportNet
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
+
 			this.ForgotPassword.TouchUpInside += (object sender, EventArgs e) => {
 				var board = UIStoryboard.FromName ("MainStoryboard", null);
 				var password = (ForgotPasswordController)board.InstantiateViewController ("forgotpassword");
 				this.NavigationController.PushViewController(password, true);
+			};
+
+			this.Login.TouchUpInside += (object sender, EventArgs e) => {
+				((UIWindow)UIApplication.SharedApplication.Delegate.Window).RootViewController = 
+					new MainTabController();
 			};
 		}
 	}

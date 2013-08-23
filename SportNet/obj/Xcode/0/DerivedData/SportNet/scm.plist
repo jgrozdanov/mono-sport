@@ -3,9 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>FoundWorkingCopyPaths</key>
-	<array/>
+	<array>
+		<string>/Users/dani/dev/SportNetMobile</string>
+	</array>
 	<key>LastWorkingCopyScanDate</key>
-	<date>2013-08-19T08:15:52Z</date>
+	<date>2013-08-21T07:08:09Z</date>
 	<key>MissingFilePaths</key>
 	<array/>
 	<key>Version</key>

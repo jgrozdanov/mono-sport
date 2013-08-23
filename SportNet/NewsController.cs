@@ -26,13 +26,13 @@ namespace SportNet
 				new NewsCellModel { Heading = "Button: I haven't lost my enthusiasm", Category = "Formula 1", ImageSource = "./Assets/article-pic.jpg" },
 				new NewsCellModel { Heading = "Hulkenberg vows to keep pushing", Category = "Sauber", ImageSource = "./Assets/article-pic.jpg" },
 				new NewsCellModel { Heading = "Button: I haven't lost my enthusiasm", Category = "Formula 1", ImageSource = "./Assets/article-pic.jpg" },
-				new NewsCellModel { Heading = "Cristiano Ronaldo", Category = "Football", ImageSource = "./Assets/article-pic.jpg" },
+				new NewsCellModel { Heading = "Cristiano Ronaldo", Category = "Football", ImageSource = "./Assets/article-pic.jpg" }
 			};
 			var featured = new NewsCellModel[] {
 				new NewsCellModel { Heading = "Tiger Woods Will End Weekend Woes with PGA Championship Victory", Category = "Golf", ImageSource = "./Assets/article-pic.jpg" },
 				new NewsCellModel { Heading = "Cristiano Ronaldo", Category = "Football", ImageSource = "./Assets/article-pic.jpg" },
 				new NewsCellModel { Heading = "Button: I haven't lost my enthusiasm", Category = "Formula 1", ImageSource = "./Assets/article-pic.jpg" },
-				new NewsCellModel { Heading = "Transfer news: Lyon doubt Newcastle's Bafetimbi Gomis deal will be completed", Category = "Football", ImageSource = "./Assets/article-pic.jpg" },
+				new NewsCellModel { Heading = "Transfer news: Lyon doubt Newcastle's Bafetimbi Gomis deal will be completed", Category = "Football", ImageSource = "./Assets/article-pic.jpg" }
 			};
 			TableView.Source = new NewsControllerSource (articles, featured);
 			refresh = new UIRefreshControl ();

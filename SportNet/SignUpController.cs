@@ -53,8 +53,11 @@ namespace SportNet
 		{
 			base.ViewDidLoad ();
 			this.CreateAccount.TouchUpInside += (object sender, EventArgs e) => {
-				((UIWindow)UIApplication.SharedApplication.Delegate.Window).RootViewController = 
-					new MainTabController();
+				UIStoryboard board = UIStoryboard.FromName ("MainStoryboard", null);
+				PreferencesController welcome = (PreferencesController)board.InstantiateViewController ("preferencescontroller");
+				welcome.ImageSources = new string[] { "aaa", "a", "a", "a", "a", "a", "a", "a", "a" };
+
+				this.NavigationController.PushViewController(welcome, true);
 			};
 		}
 	}

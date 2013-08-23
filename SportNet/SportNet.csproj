@@ -87,8 +87,31 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="Lib\SlideoutNavigationController.cs" />
+    <Compile Include="NewsControllerSource.cs" />
+    <Compile Include="NewsCell.cs" />
+    <Compile Include="NewsCellModel.cs" />
+    <Compile Include="FeaturedCell.cs" />
+    <Compile Include="MenuControllerSource.cs" />
+    <Compile Include="PreferenceCell.cs" />
+    <Compile Include="StartReadingView.cs" />
+    <Compile Include="StartReadingView.designer.cs">
+      <DependentUpon>StartReadingView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PreferenceModel.cs" />
+    <Compile Include="PreferencesSubControllerSource.cs" />
+    <Compile Include="ForgotPasswordController.cs" />
+    <Compile Include="ForgotPasswordController.designer.cs">
+      <DependentUpon>ForgotPasswordController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LoginController.cs" />
+    <Compile Include="LoginController.designer.cs">
+      <DependentUpon>LoginController.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainTabController.cs" />
+    <Compile Include="MenuController.cs" />
+    <Compile Include="MenuController.designer.cs">
+      <DependentUpon>MenuController.cs</DependentUpon>
+    </Compile>
     <Compile Include="NewsController.cs" />
     <Compile Include="NewsController.designer.cs">
       <DependentUpon>NewsController.cs</DependentUpon>
@@ -97,31 +120,26 @@
     <Compile Include="NewsDetailController.designer.cs">
       <DependentUpon>NewsDetailController.cs</DependentUpon>
     </Compile>
-    <Compile Include="NewsControllerSource.cs" />
-    <Compile Include="NewsCell.cs" />
-    <Compile Include="NewsCellModel.cs" />
-    <Compile Include="FeaturedCell.cs" />
-    <Compile Include="MenuController.cs" />
-    <Compile Include="MenuController.designer.cs">
-      <DependentUpon>MenuController.cs</DependentUpon>
+    <Compile Include="PreferencesController.cs" />
+    <Compile Include="PreferencesController.designer.cs">
+      <DependentUpon>PreferencesController.cs</DependentUpon>
     </Compile>
-    <Compile Include="MenuControllerSource.cs" />
-    <Compile Include="WelcomeController.cs" />
-    <Compile Include="WelcomeController.designer.cs">
-      <DependentUpon>WelcomeController.cs</DependentUpon>
+    <Compile Include="PreferencesSubController.cs" />
+    <Compile Include="PreferencesSubController.designer.cs">
+      <DependentUpon>PreferencesSubController.cs</DependentUpon>
     </Compile>
     <Compile Include="SignUpController.cs" />
     <Compile Include="SignUpController.designer.cs">
       <DependentUpon>SignUpController.cs</DependentUpon>
     </Compile>
-    <Compile Include="LoginController.cs" />
-    <Compile Include="LoginController.designer.cs">
-      <DependentUpon>LoginController.cs</DependentUpon>
+    <Compile Include="WelcomeController.cs" />
+    <Compile Include="WelcomeController.designer.cs">
+      <DependentUpon>WelcomeController.cs</DependentUpon>
     </Compile>
-    <Compile Include="ForgotPasswordController.cs" />
-    <Compile Include="ForgotPasswordController.designer.cs">
-      <DependentUpon>ForgotPasswordController.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Lib\SlideoutNavigationController.cs" />
+    <Compile Include="VideoCell.cs" />
+    <Compile Include="VideoControllerSource.cs" />
+    <Compile Include="VideoController.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />
@@ -158,10 +176,19 @@
     <BundleResource Include="Assets\facebookclean%402x.png" />
     <BundleResource Include="Assets\googleclean%402x.png" />
     <BundleResource Include="Assets\twitterclean%402x.png" />
+    <BundleResource Include="Default-568h%402x.png" />
+    <BundleResource Include="Assets\plus%402x.png" />
+    <BundleResource Include="Assets\category%402x.png" />
+    <BundleResource Include="Assets\check%402x.png" />
+    <BundleResource Include="Assets\checkred%402x.png" />
+    <BundleResource Include="Assets\disclosure%402x.png" />
+    <BundleResource Include="Assets\pluswhite%402x.png" />
+    <BundleResource Include="Assets\play%402x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <Folder Include="Lib\" />
     <Folder Include="Assets\" />
+    <Folder Include="Models\" />
+    <Folder Include="Lib\" />
   </ItemGroup>
 </Project>

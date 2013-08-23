@@ -9,7 +9,7 @@ namespace SportNet
 	{
 		private SlideoutNavigationController news;
 		private UIViewController pictures; 
-		private UIViewController video;
+		private SlideoutNavigationController video;
 		private NewsController table;
 
 		public SlideoutNavigationController News {
@@ -29,13 +29,14 @@ namespace SportNet
 			var menu = (MenuController)board.InstantiateViewController ("menucontroller");
 			news.TopView = table;
 			news.MenuViewLeft = menu;
-			news.TopView.Title = "News";
 
 			pictures = new UIViewController ();
-			pictures.Title = "Pictures";
 
-			video = new UIViewController ();
-			video.Title = "Video";
+			video = new SlideoutNavigationController ();
+			menu = (MenuController)board.InstantiateViewController ("menucontroller");
+			video.TopView = new VideoController ();
+			video.MenuViewLeft = menu;
+			video.DisplayNavigationBarOnLeftMenu = false;
 
 			ViewControllers = new UIViewController[] { news, pictures, video };
 		}
@@ -47,11 +48,16 @@ namespace SportNet
 			news.LayerShadowing = true;
 			news.DisplayNavigationBarOnLeftMenu = false;
 
-			var img = UIImage.FromFile ("./Assets/logo.png");
-			var imgView = new UIImageView { Image = img };
+			// set the logo in the navbar
+			var imgView = new UIImageView { Image = UIImage.FromFile ("./Assets/logo.png") };
 			imgView.Frame = new System.Drawing.RectangleF (0, 0, 40, 40);
 			imgView.ContentMode = UIViewContentMode.ScaleAspectFit;
 			news.TopView.NavigationItem.TitleView = imgView;
+
+			imgView = new UIImageView { Image = UIImage.FromFile ("./Assets/logo.png") };
+			imgView.Frame = new System.Drawing.RectangleF (0, 0, 40, 40);
+			imgView.ContentMode = UIViewContentMode.ScaleAspectFit;
+			video.TopView.NavigationItem.TitleView = imgView;
 
 			// Global appearance properties
 			UINavigationBar.Appearance.SetTitleTextAttributes 
