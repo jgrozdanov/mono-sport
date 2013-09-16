@@ -8,14 +8,23 @@ namespace SportNet
 	public class MainTabController : UITabBarController
 	{
 		private SlideoutNavigationController news;
-		private UIViewController pictures; 
+		private SlideoutNavigationController pictures; 
 		private SlideoutNavigationController video;
-		private NewsController table;
+		private NewsController tableNews;
+		private PicturesController tablePictures;
+		private LiveScoreViewController liveScore;
 
 		public SlideoutNavigationController News {
 			get 
 			{
 				return news;
+			}
+		}
+
+		public SlideoutNavigationController Pictures {
+			get 
+			{
+				return pictures;
 			}
 		}
 
@@ -25,12 +34,23 @@ namespace SportNet
 
 			// instantiate the table view from the storyboard
 			UIStoryboard board = UIStoryboard.FromName ("MainStoryboard", null);
-			table = (NewsController)board.InstantiateViewController ("newscontroller");
+			tableNews = (NewsController)board.InstantiateViewController ("newscontroller");
 			var menu = (MenuController)board.InstantiateViewController ("menucontroller");
-			news.TopView = table;
+			news.TopView = tableNews;
 			news.MenuViewLeft = menu;
 
-			pictures = new UIViewController ();
+			pictures = new SlideoutNavigationController ();
+			//tablePictures = (PicturesController)board.InstantiateViewController ("picturesController");
+			tablePictures = new PicturesController ();
+			menu = (MenuController)board.InstantiateViewController ("menucontroller");
+			pictures.TopView = tablePictures;
+			pictures.MenuViewLeft = menu;
+			pictures.DisplayNavigationBarOnLeftMenu = false;
+
+
+			liveScore = (LiveScoreViewController)board.InstantiateViewController ("lscv");
+
+
 
 			video = new SlideoutNavigationController ();
 			menu = (MenuController)board.InstantiateViewController ("menucontroller");
@@ -38,7 +58,7 @@ namespace SportNet
 			video.MenuViewLeft = menu;
 			video.DisplayNavigationBarOnLeftMenu = false;
 
-			ViewControllers = new UIViewController[] { news, pictures, video };
+			ViewControllers = new UIViewController[] { news, pictures, video, liveScore };
 		}
 
 		public override void ViewWillAppear (bool animated)
@@ -58,6 +78,11 @@ namespace SportNet
 			imgView.Frame = new System.Drawing.RectangleF (0, 0, 40, 40);
 			imgView.ContentMode = UIViewContentMode.ScaleAspectFit;
 			video.TopView.NavigationItem.TitleView = imgView;
+
+			imgView = new UIImageView { Image = UIImage.FromFile ("./Assets/logo.png") };
+			imgView.Frame = new System.Drawing.RectangleF (0, 0, 40, 40);
+			imgView.ContentMode = UIViewContentMode.ScaleAspectFit;
+			pictures.TopView.NavigationItem.TitleView = imgView;
 
 			// Global appearance properties
 			UINavigationBar.Appearance.SetTitleTextAttributes 
@@ -80,8 +105,17 @@ namespace SportNet
 			video.TabBarItem.SetFinishedImages (UIImage.FromFile("./Assets/video-active.png"),
 			                                       UIImage.FromFile("./Assets/video.png"));
 
-			table.View.BackgroundColor = UIColor.FromRGB (26, 26, 26);
-			table.TableView.SeparatorStyle = UITableViewCellSeparatorStyle.None;
+			liveScore.TabBarItem = new UITabBarItem ();
+			liveScore.TabBarItem.Title = "LiveScore";
+			liveScore.TabBarItem.SetFinishedImages (UIImage.FromFile("./Assets/livescore-active.png"),
+			                                    UIImage.FromFile("./Assets/livescore.png"));
+
+			tableNews.View.BackgroundColor = UIColor.FromRGB (26, 26, 26);
+			tableNews.TableView.SeparatorStyle = UITableViewCellSeparatorStyle.None;
+
+			tablePictures.View.BackgroundColor = UIColor.FromRGB (26, 26, 26);
+			tablePictures.TableView.SeparatorStyle = UITableViewCellSeparatorStyle.None;
+
 		}
 	}
 }

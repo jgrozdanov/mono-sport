@@ -17,17 +17,25 @@ namespace SportNet
 
 		[Outlet]
 		MonoTouch.UIKit.UIImageView Image { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIButton Settings { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (AddContent != null) {
+				AddContent.Dispose ();
+				AddContent = null;
+			}
+
 			if (Image != null) {
 				Image.Dispose ();
 				Image = null;
 			}
 
-			if (AddContent != null) {
-				AddContent.Dispose ();
-				AddContent = null;
+			if (Settings != null) {
+				Settings.Dispose ();
+				Settings = null;
 			}
 		}
 	}

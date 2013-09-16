@@ -39,7 +39,7 @@ namespace SportNet
 
 				Heading = new UILabel();
 				Heading.TextColor = UIColor.White;
-				Heading.Font = UIFont.FromName ("Helvetica-Bold", 20f);
+				Heading.Font = UIFont.FromName ("Helvetica-Bold", 17f);
 				Heading.BackgroundColor = UIColor.Clear;
 				Heading.Lines = 2;
 
@@ -102,7 +102,6 @@ namespace SportNet
 			base.LayoutSubviews ();
 
 			float scrollOffset = ((AppDelegate)UIApplication.SharedApplication.Delegate).FeaturedScrollOffset;
-
 			scrollView.ScrollsToTop = false;
 			scrollView.Frame = new RectangleF(18, 10, ContentView.Bounds.Width - 36, ContentView.Bounds.Height - 20);
 			scrollView.ContentSize = new SizeF ((ContentView.Bounds.Width - 36) * 4, ContentView.Bounds.Height - 20);

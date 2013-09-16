@@ -11,5 +11,6 @@
 
 @synthesize AddContent = _AddContent;
 @synthesize Image = _Image;
+@synthesize Settings = _Settings;
 
 @end

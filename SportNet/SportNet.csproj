@@ -23,9 +23,10 @@
     <MtouchLink>None</MtouchLink>
     <ConsolePause>false</ConsolePause>
     <MtouchDebug>true</MtouchDebug>
+    <MtouchI18n />
+    <MtouchArch>ARMv7</MtouchArch>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
-    <DebugType>full</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\iPhoneSimulator\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
@@ -140,6 +141,72 @@
     <Compile Include="VideoCell.cs" />
     <Compile Include="VideoControllerSource.cs" />
     <Compile Include="VideoController.cs" />
+    <Compile Include="AccountSettingsController.cs" />
+    <Compile Include="AccountSettingsController.designer.cs">
+      <DependentUpon>AccountSettingsController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LeagueController.cs" />
+    <Compile Include="LeagueController.designer.cs">
+      <DependentUpon>LeagueController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ChangePasswordController.cs" />
+    <Compile Include="ChangePasswordController.designer.cs">
+      <DependentUpon>ChangePasswordController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ContentLanguageController.cs" />
+    <Compile Include="ContentLanguageController.designer.cs">
+      <DependentUpon>ContentLanguageController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EditProfileController.cs" />
+    <Compile Include="EditProfileController.designer.cs">
+      <DependentUpon>EditProfileController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NotificiationsController.cs" />
+    <Compile Include="NotificiationsController.designer.cs">
+      <DependentUpon>NotificiationsController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RemoveAccountController.cs" />
+    <Compile Include="RemoveAccountController.designer.cs">
+      <DependentUpon>RemoveAccountController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AboutAppController.cs" />
+    <Compile Include="AboutAppController.designer.cs">
+      <DependentUpon>AboutAppController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ContentLanguageControllerSource.cs" />
+    <Compile Include="LiveScoreController.cs" />
+    <Compile Include="LiveScoreController.designer.cs">
+      <DependentUpon>LiveScoreController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LiveScoreViewController.cs" />
+    <Compile Include="LiveScoreViewController.designer.cs">
+      <DependentUpon>LiveScoreViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TodayTableSource.cs" />
+    <Compile Include="LiveScoreCell.cs" />
+    <Compile Include="LiveScoreCell.designer.cs">
+      <DependentUpon>LiveScoreCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LiveScoreCellModel.cs" />
+    <Compile Include="PicturesControllerCell.cs" />
+    <Compile Include="PicturesControllerSource.cs" />
+    <Compile Include="PicturesController.cs" />
+    <Compile Include="PicturesCellModel.cs" />
+    <Compile Include="PicturesFeaturedCell.cs" />
+    <Compile Include="PicturesCollectionController.cs" />
+    <Compile Include="PicturesCollectionController.designer.cs">
+      <DependentUpon>PicturesCollectionController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PicturesController.designer.cs">
+      <DependentUpon>PicturesController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PicturesCollectionModel.cs" />
+    <Compile Include="PictureCollectionCell.cs" />
+    <Compile Include="PictureHeaderVIew.cs" />
+    <Compile Include="PictureHeaderVIew.designer.cs">
+      <DependentUpon>PictureHeaderVIew.cs</DependentUpon>
+    </Compile>
+    <Compile Include="YesterdayTableSource.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />
@@ -176,7 +243,6 @@
     <BundleResource Include="Assets\facebookclean%402x.png" />
     <BundleResource Include="Assets\googleclean%402x.png" />
     <BundleResource Include="Assets\twitterclean%402x.png" />
-    <BundleResource Include="Default-568h%402x.png" />
     <BundleResource Include="Assets\plus%402x.png" />
     <BundleResource Include="Assets\category%402x.png" />
     <BundleResource Include="Assets\check%402x.png" />
@@ -184,6 +250,25 @@
     <BundleResource Include="Assets\disclosure%402x.png" />
     <BundleResource Include="Assets\pluswhite%402x.png" />
     <BundleResource Include="Assets\play%402x.png" />
+    <BundleResource Include="Assets\bgr-1.png" />
+    <BundleResource Include="Assets\bgr.png" />
+    <BundleResource Include="Assets\delete%402x.png" />
+    <BundleResource Include="Assets\divider%402x.png" />
+    <BundleResource Include="Assets\FacebookGrey%402x.png" />
+    <BundleResource Include="Assets\GooglePlusGrey%402x.png" />
+    <BundleResource Include="Assets\livescore-active%402x.png" />
+    <BundleResource Include="Assets\livescore%402x.png" />
+    <BundleResource Include="Assets\search%402x.png" />
+    <BundleResource Include="Assets\settings-checked.png" />
+    <BundleResource Include="Assets\settings-unchecked.png" />
+    <BundleResource Include="Assets\TwitterGrey%402x.png" />
+    <BundleResource Include="Assets\divider.png" />
+    <BundleResource Include="Assets\football-icon%402x.png" />
+    <BundleResource Include="Assets\yesterday%402x.png" />
+    <BundleResource Include="Assets\today%402x.png" />
+    <BundleResource Include="Assets\indicator%402x.png" />
+    <BundleResource Include="Assets\photo%402x.png" />
+    <BundleResource Include="Assets\photoSmall.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

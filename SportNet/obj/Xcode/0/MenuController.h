@@ -12,10 +12,13 @@
 @interface MenuController : UITableViewController {
 	UIButton *_AddContent;
 	UIImageView *_Image;
+	UIButton *_Settings;
 }
 
 @property (nonatomic, retain) IBOutlet UIButton *AddContent;
 
 @property (nonatomic, retain) IBOutlet UIImageView *Image;
+
+@property (nonatomic, retain) IBOutlet UIButton *Settings;
 
 @end

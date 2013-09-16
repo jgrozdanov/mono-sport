@@ -4,9 +4,11 @@ using System.Linq;
 using System.Drawing;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+ 
 
 namespace SportNet
 {
+ 
 	// The UIApplicationDelegate for the application. This class is responsible for launching the 
 	// User Interface of the application, as well as listening (and optionally responding) to 
 	// application events from iOS.
@@ -20,7 +22,7 @@ namespace SportNet
 			get;
 			set;
 		}
-
+		public UIImage profilePhoto { get; set; }
 		public float FeaturedScrollOffset { get; set; }
 		public bool IsLoggedIn { get; set; }
 

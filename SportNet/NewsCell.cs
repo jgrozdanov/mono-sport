@@ -11,6 +11,7 @@ namespace SportNet
 		private UILabel category;
 		private UIImageView image;
 
+
 		public NewsCell (NSString cellId) : base(UITableViewCellStyle.Default, cellId)
 		{
 			SelectionStyle = UITableViewCellSelectionStyle.None;
@@ -31,9 +32,12 @@ namespace SportNet
 			image.ContentMode = UIViewContentMode.ScaleAspectFill;
 			image.ClipsToBounds = true;
 
+
 			ContentView.Add (heading);
 			ContentView.Add (category);
 			ContentView.Add (image);
+
+			
 		}
 
 		public void SetNewsCell(string heading, string category, string image)
@@ -41,6 +45,7 @@ namespace SportNet
 			this.heading.Text = heading;
 			this.category.Text = category;
 			this.image.Image = UIImage.FromFile (image);
+
 		}
 
 		public override void LayoutSubviews ()
@@ -51,6 +56,8 @@ namespace SportNet
 			category.Frame = new RectangleF(128, 10, ContentView.Bounds.Width - 136, 12);
 			heading.Frame = new RectangleF(128, 25, ContentView.Bounds.Width - 145, 16);
 			heading.SizeToFit ();
+			image.Frame = new RectangleF(18, 0, 100, 100);
+
 		}
 	}
 }

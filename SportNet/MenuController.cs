@@ -16,13 +16,32 @@ namespace SportNet
 		public override void ViewWillAppear (bool animated)
 		{
 			base.ViewWillAppear (animated);
-			this.Image.Image = UIImage.FromFile ("./Assets/profile.png");
+			if (((AppDelegate)UIApplication.SharedApplication.Delegate).profilePhoto == null) {
+				this.Image.Image = UIImage.FromFile ("./Assets/profile.png");
+			} else {
+				this.Image.Image = ((AppDelegate)UIApplication.SharedApplication.Delegate).profilePhoto;
+			}
 			this.AddContent.SetBackgroundImage (UIImage.FromFile ("./Assets/addcontent.png"), UIControlState.Normal);
 			var cats = new string[] { "Football", "Basketball", "Golf", "Formula 1", "Poker", "More" };
 			TableView.Source = new MenuControllerSource (cats);
 			TableView.ScrollsToTop = false;
 			TableView.SeparatorColor = UIColor.FromRGB (38, 38, 38);
 			TableView.AllowsMultipleSelection = false;
+		}
+		public override void ViewDidLoad ()
+		{
+			base.ViewDidLoad ();
+
+			AppDelegate appDelegate = (AppDelegate)UIApplication.SharedApplication.Delegate;
+			UIStoryboard board = UIStoryboard.FromName ("MainStoryboard", null);
+
+
+			this.Settings.TouchUpInside += (object sender, EventArgs e) => {
+				AccountSettingsController accSettings = (AccountSettingsController)board.InstantiateViewController ("accountSettingsController");
+				this.NavigationController.PushViewController(accSettings, true);
+			};
+
+
 		}
 	}
 }
