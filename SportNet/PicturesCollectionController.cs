@@ -71,8 +71,12 @@ namespace SportNet
 		{
 			AppDelegate appDelegate = (AppDelegate)UIApplication.SharedApplication.Delegate;
 			UIStoryboard board = UIStoryboard.FromName ("MainStoryboard", null);
-			AboutAppController aboutApp = (AboutAppController)board.InstantiateViewController ("aboutAppController");
-			this.NavigationController.PushViewController(aboutApp, true);
+			PictureBigCollectionController bigPicture = (PictureBigCollectionController)board.InstantiateViewController ("pictureBigCollectionController");
+			bigPicture.Title = string.Format ("{0}/{1}", indexPath.Row+1, NumberOfPictures);
+			bigPicture.ImageSources = ImageSources;
+			((MainTabController)UIApplication.SharedApplication.Delegate.Window.RootViewController).
+				Pictures.InternalTopNavigation.PushViewController (bigPicture,true);
+
 		}
 		public override int GetItemsCount (UICollectionView collectionView, int section)
 		{

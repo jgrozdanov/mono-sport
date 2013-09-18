@@ -501,50 +501,53 @@
                     <collectionView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="iPU-zY-mb4">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="3YZ-Yj-ga6">
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="4vC-b8-Adc">
                             <size key="itemSize" width="67" height="67"/>
-                            <size key="headerReferenceSize" width="320" height="70"/>
+                            <size key="headerReferenceSize" width="50" height="90"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="10" minY="10" maxX="10" maxY="10"/>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="picturesCollectionCell" id="Jx9-bB-RjV">
-                                <rect key="frame" x="10" y="80" width="67" height="67"/>
+                                <rect key="frame" x="10" y="100" width="67" height="67"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="67" height="67"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
+                                <connections>
+                                    <segue destination="dVN-Gr-fPs" kind="push" identifier="bigPicture" id="4u9-uA-ecW"/>
+                                </connections>
                             </collectionViewCell>
                         </cells>
-                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="redraw" reuseIdentifier="header" id="D2W-nZ-ZrI" customClass="PictureHeaderVIew">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="header" id="dgt-2y-eLr" customClass="PictureHeaderVIew">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="90"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <subviews>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PJH-1t-EEd">
-                                    <rect key="frame" x="15" y="15" width="230" height="33"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="17"/>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5j0-A6-D93">
+                                    <rect key="frame" x="20" y="14" width="230" height="21"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="ugE-LK-vY7">
-                                    <rect key="frame" x="265" y="15" width="40" height="40"/>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="xbe-Eg-zdx">
+                                    <rect key="frame" x="260" y="15" width="40" height="40"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </imageView>
-                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nR9-ZY-DZf">
-                                    <rect key="frame" x="265" y="17" width="40" height="15"/>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="sSt-wF-NYo">
+                                    <rect key="frame" x="260" y="15" width="40" height="21"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="12"/>
                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
                             <connections>
-                                <outlet property="photo" destination="ugE-LK-vY7" id="KgD-Jt-9aF"/>
-                                <outlet property="picturesCount" destination="nR9-ZY-DZf" id="0bM-3y-Agd"/>
-                                <outlet property="title" destination="PJH-1t-EEd" id="lV8-cB-2bk"/>
+                                <outlet property="photo" destination="xbe-Eg-zdx" id="tlb-OR-iMn"/>
+                                <outlet property="picturesCount" destination="sSt-wF-NYo" id="ft5-eC-gah"/>
+                                <outlet property="title" destination="5j0-A6-D93" id="MXv-dj-2Gx"/>
                             </connections>
                         </collectionReusableView>
                     </collectionView>
@@ -554,6 +557,39 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OPp-4T-hfz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2237" y="57"/>
+        </scene>
+        <!--Picture Big Collection Controller-->
+        <scene sceneID="iXg-oA-dSJ">
+            <objects>
+                <viewController storyboardIdentifier="pictureBigCollectionController" id="dVN-Gr-fPs" customClass="PictureBigCollectionController" sceneMemberID="viewController">
+                    <collectionView key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" id="xXW-HU-xe2">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="ip1-rR-DNc">
+                            <size key="itemSize" width="320" height="455"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="picturesBigCell" id="btR-Zs-0LY">
+                                <rect key="frame" x="0.0" y="24" width="320" height="455"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="455"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <size key="customSize" width="320" height="455"/>
+                            </collectionViewCell>
+                        </cells>
+                    </collectionView>
+                    <navigationItem key="navigationItem" id="VXq-MU-6VI"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="frg-vD-BWp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2696" y="57"/>
         </scene>
         <!--Change Password Controller - Change Password-->
         <scene sceneID="fHN-hR-Bh2">
@@ -778,6 +814,22 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f27-ev-D4X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1743" y="1384"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="IOP-92-36i">
+            <objects>
+                <viewController id="NqF-Fh-qS6" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="baK-hy-w0O">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AaV-Ar-GIJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1680" y="2381"/>
         </scene>
         <!--Remove Account Controller - Remove Account-->
         <scene sceneID="Fuc-RG-8aW">
@@ -1109,7 +1161,7 @@ The site allows you to customise your reading experience, share stories to your 
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="center" id="uqb-QB-Y0t">
-                                <rect key="frame" x="0.0" y="44" width="321" height="460"/>
+                                <rect key="frame" x="0.0" y="44" width="320" height="460"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="TdC-lu-Z1r">
                                 <rect key="frame" x="48" y="318" width="225" height="31"/>
@@ -1689,6 +1741,9 @@ The site allows you to customise your reading experience, share stories to your 
                 <relationship kind="outlet" name="LiveScoreEvents" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="NewSources" candidateClass="UIButton"/>
             </relationships>
+        </class>
+        <class className="PictureBigCollectionController" superclassName="UICollectionViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PictureBigCollectionController.h"/>
         </class>
         <class className="PictureHeaderVIew" superclassName="UICollectionReusableView">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/PictureHeaderVIew.h"/>

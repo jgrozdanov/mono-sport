@@ -69,10 +69,6 @@ namespace SportNet
 
 			((MainTabController)UIApplication.SharedApplication.Delegate.Window.RootViewController).
 				Pictures.InternalTopNavigation.PushViewController (gallery,true);
-
-
-
-			//tableView.DeselectRow (indexPath, true);
 		}
 
 	}

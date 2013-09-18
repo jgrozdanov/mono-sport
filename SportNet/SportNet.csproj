@@ -207,6 +207,20 @@
       <DependentUpon>PictureHeaderVIew.cs</DependentUpon>
     </Compile>
     <Compile Include="YesterdayTableSource.cs" />
+    <Compile Include="PictureBigCollectionController.cs" />
+    <Compile Include="PictureBigCollectionController.designer.cs">
+      <DependentUpon>PictureBigCollectionController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PictureBigCollectionModel.cs" />
+    <Compile Include="PictureBigCollectionView.cs" />
+    <Compile Include="PictureBigCollectionView.designer.cs">
+      <DependentUpon>PictureBigCollectionView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PictureBigCollectionCell.cs" />
+    <Compile Include="LineLayout.cs" />
+    <Compile Include="LineLayout.designer.cs">
+      <DependentUpon>LineLayout.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />

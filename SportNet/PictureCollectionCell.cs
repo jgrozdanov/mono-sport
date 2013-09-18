@@ -15,7 +15,7 @@ namespace SportNet
 		[Export ("initWithFrame:")]
 		public PictureCollectionCell (RectangleF frame) : base(frame)
 		{
-			this.image = new UIImageView (new RectangleF (0, 0, 90, 90));
+			this.image = new UIImageView (new RectangleF (0, 0, this.ContentView.Bounds.Width, this.ContentView.Bounds.Height));
 			this.image.ContentMode = UIViewContentMode.ScaleAspectFill;
 			this.ContentView.AddSubview (image);
 
@@ -23,13 +23,12 @@ namespace SportNet
 
 			SelectedBackgroundView = new UIView{BackgroundColor = UIColor.Red};
 
-			ContentView.Layer.BorderColor = UIColor.LightGray.CGColor;
-			ContentView.Layer.BorderWidth = 2.0f;
-			ContentView.BackgroundColor = UIColor.White;
-			ContentView.Transform = CGAffineTransform.MakeScale (0.9f, 0.9f);
-
-			image.Center = ContentView.Center;
-			image.Transform = CGAffineTransform.MakeScale (0.8f, 0.8f);
+			ContentView.Layer.BorderWidth = 0.0f;
+//			ContentView.BackgroundColor = UIColor.White;
+//			ContentView.Transform = CGAffineTransform.MakeScale (0.9f, 0.9f);
+//
+//			image.Center = ContentView.Center;
+//			image.Transform = CGAffineTransform.MakeScale (0.8f, 0.8f);
 		}
 
 		public UIImage Image 

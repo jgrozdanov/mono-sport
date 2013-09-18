@@ -22,14 +22,18 @@ namespace SportNet
 			get;
 			set;
 		}
+
+		// app state declarations
 		public UIImage profilePhoto { get; set; }
 		public float FeaturedScrollOffset { get; set; }
 		public bool IsLoggedIn { get; set; }
+		public bool HasPreferences { get; set; }
 
 		public override bool FinishedLaunching(UIApplication app, NSDictionary options)
 		{
 			Window = new UIWindow (UIScreen.MainScreen.Bounds);
-			IsLoggedIn = false;
+			IsLoggedIn = true;
+			HasPreferences = false;
 
 			if (IsLoggedIn) {
 				tabController = new MainTabController ();
