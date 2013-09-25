@@ -9,12 +9,6 @@ namespace SportNet
 	{
 		public VideoController ()
 		{
-		}
-
-		public override void ViewWillAppear (bool animated)
-		{
-			base.ViewWillAppear (animated);
-
 			var articles = new NewsCellModel[] {
 				new NewsCellModel { Heading = "Button: I haven't lost my enthusiasm", Category = "Formula 1", ImageSource = "./Assets/article-pic.jpg" },
 				new NewsCellModel { Heading = "Transfer news: Luis Suarez rocks Liverpool with news he will submit a transfer request ", Category = "Liverpool", ImageSource = "./Assets/article-pic.jpg" },
@@ -30,6 +24,7 @@ namespace SportNet
 			TableView.ContentInset = new UIEdgeInsets (0, 0, 10, 0);
 			TableView.SeparatorStyle = UITableViewCellSeparatorStyle.None;
 			this.View.BackgroundColor = UIColor.FromRGB (26, 26, 26);
+			this.AutomaticallyAdjustsScrollViewInsets = true;
 		}
 	}
 }

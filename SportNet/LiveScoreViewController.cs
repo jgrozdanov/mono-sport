@@ -13,10 +13,9 @@ namespace SportNet
 		public LiveScoreViewController (IntPtr handle) : base (handle)
 		{
 		}
+
 		public override void ViewWillAppear (bool animated)
 		{
-			this.navBar.SetBackgroundImage (UIImage.FromFile ("./Assets/navbar.png"), 
-			                                                   MonoTouch.UIKit.UIBarMetrics.Default);
 			this.SportImage.Image =  UIImage.FromFile("./Assets/football-icon.png");
 			this.SportImageToday.Image = UIImage.FromFile ("./Assets/football-icon.png");
 			this.SwitchTo.Frame = new RectangleF(0, 44, 640, 504);
@@ -42,30 +41,56 @@ namespace SportNet
 				new LiveScoreCellModel() { TeamOne = "West Ham United", TeamTwo = "West Ham United", Result = "16:16", TimeIndicator = 0, StartTime = "19;00" }
 
 			};
-			//this.TodayTable.Frame = new RectangleF (340, 90, 280, 320);
 			this.TodayTable.ShowsVerticalScrollIndicator = false;
 			this.TodayTable.Source = new TodayTableSource (events);
 			this.TodayTable.BackgroundColor=  UIColor.FromRGB (26, 26, 26);
 			this.YesterdayTable.Source = new YesterdayTableSource (events);
 			this.YesterdayTable.BackgroundColor=  UIColor.FromRGB (26, 26, 26);
 			this.YesterdayTable.ShowsVerticalScrollIndicator = false;
+			this.SwitchCategory.SetBackgroundImage (UIImage.FromFile ("./Assets/dropdown.png"), UIControlState.Normal);
+			this.YesterdaySwitchCategory.SetBackgroundImage (UIImage.FromFile ("./Assets/dropdown.png"), UIControlState.Normal);
+			this.NavigationController.TopViewController.NavigationItem.LeftBarButtonItem = new UIBarButtonItem("Yesterday", UIBarButtonItemStyle.Plain, 
+			                                                                                                   (s, e) => this.SwitchTo.SetContentOffset(new PointF(0, 0), true));
+			this.NavigationController.TopViewController.NavigationItem.RightBarButtonItem = new UIBarButtonItem("Today", UIBarButtonItemStyle.Plain, 
+			                                                                                                    (s, e) => this.SwitchTo.SetContentOffset(new PointF(320, 0), true));
+			this.AutomaticallyAdjustsScrollViewInsets = false;
+		}
 
-			var customOne = new UIButton (new RectangleF (0, 0, 26, 26));
-			customOne.SetBackgroundImage(UIImage.FromFile("./Assets/yesterday.png"), UIControlState.Normal);
-			customOne.TouchUpInside += (sender, e) => {
-				PointF yesterday = new PointF(0,0);
-				this.SwitchTo.SetContentOffset(yesterday,true);
+		public override void ViewDidLoad ()
+		{
+			base.ViewDidLoad ();
+
+			this.SwitchCategory.TouchUpInside += (object sender, EventArgs e) => {
+				if(this.Categories.Hidden) {
+					this.Categories.Alpha = 0;
+					this.Categories.Hidden = false;
+					UIView.Animate(0.25, 0, UIViewAnimationOptions.CurveEaseInOut,
+					               () => this.Categories.Alpha = 1,
+					               () => this.Categories.Hidden = false);
+				}
+				else {
+					this.Categories.Alpha = 1;
+					UIView.Animate(0.25, 0, UIViewAnimationOptions.CurveEaseInOut,
+					               () => this.Categories.Alpha = 0,
+					               () => this.Categories.Hidden = true);
+				}
 			};
-			var customTwo = new UIButton (new RectangleF (0, 0, 26, 26));
-			customTwo.SetBackgroundImage(UIImage.FromFile("./Assets/today.png"), UIControlState.Normal);
-			customTwo.TouchUpInside += (sender, e) => {
-				PointF yesterday = new PointF(320,0);
-				this.SwitchTo.SetContentOffset(yesterday,true);
+
+			this.YesterdaySwitchCategory.TouchUpInside += (object sender, EventArgs e) => {
+				if(this.YesterdayCategories.Hidden) {
+					this.YesterdayCategories.Alpha = 0;
+					this.YesterdayCategories.Hidden = false;
+					UIView.Animate(0.25, 0, UIViewAnimationOptions.CurveEaseInOut,
+					               () => this.YesterdayCategories.Alpha = 1,
+					               () => this.YesterdayCategories.Hidden = false);
+				}
+				else {
+					this.YesterdayCategories.Alpha = 1;
+					UIView.Animate(0.25, 0, UIViewAnimationOptions.CurveEaseInOut,
+					               () => this.YesterdayCategories.Alpha = 0,
+					               () => this.YesterdayCategories.Hidden = true);
+				}
 			};
-
-
-			this.Yesterday.CustomView = customOne;
-			this.Today.CustomView = customTwo;
 		}
 	}
 }

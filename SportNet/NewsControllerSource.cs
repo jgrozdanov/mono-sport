@@ -35,6 +35,7 @@ namespace SportNet
 				// we subtract one from the index because of the featured cell
 				cell.SetNewsCell (items [indexPath.Row - 1].Heading, items [indexPath.Row - 1].Category, 
 				                  items [indexPath.Row - 1].ImageSource);
+				cell.ContentView.BackgroundColor = UIColor.FromRGB (26, 26, 26);
 				return cell;
 			} else {
 				var cell = tableView.DequeueReusableCell(cellIdentifier) as FeaturedCell;
@@ -44,6 +45,7 @@ namespace SportNet
 				for (int i = 0; i < 4; i++) {
 					cell.SetFeaturedCell (featured);
 				}
+				cell.ContentView.BackgroundColor = UIColor.FromRGB (26, 26, 26);
 				return cell;
 			}
 		}

@@ -15,8 +15,8 @@ namespace SportNet
 
 		public PicturesCollectionController (IntPtr handle) : base (handle)
 		{
-
 		}
+
 		public override void ViewWillAppear (bool animated)
 		{
 			base.ViewWillAppear (animated);
@@ -32,17 +32,16 @@ namespace SportNet
 
 			this.NavigationItem.LeftBarButtonItem = button;
 		}
+
 		public override UICollectionViewCell GetCell (UICollectionView collectionView, NSIndexPath indexPath)
 		{
 			var cell = (PictureCollectionCell)collectionView.DequeueReusableCell (PictureCollectionCell.CellId, indexPath);
 			cell.Image = UIImage.FromFile ("./Assets/profilebig.png");
 			return cell;
 		}
+
 		public override UICollectionReusableView GetViewForSupplementaryElement (UICollectionView collectionView, NSString elementKind, NSIndexPath indexPath)
 		{
-//			PictureHeaderVIew headerView = new PictureHeaderVIew ();
-//			headerView.BackgroundColor = UIColor.Red;
-//			return headerView;
 			if (elementKind == (NSString)"UICollectionElementKindSectionHeader") {
 				PictureHeaderVIew header = (PictureHeaderVIew)collectionView.DequeueReusableSupplementaryView 
 					(UICollectionElementKindSection.Header, (NSString)"header", indexPath);
@@ -54,7 +53,8 @@ namespace SportNet
 				float height = header.title.Frame.Height;
 
 				return header;
-			} else {
+			} 
+			else {
 				StartReadingView footer = (StartReadingView)collectionView.DequeueReusableSupplementaryView 
 					(UICollectionElementKindSection.Footer, (NSString)"collectionfooter", indexPath);
 				footer.StartReading.SetBackgroundImage (UIImage.FromFile ("./Assets/buttonlong.png"), UIControlState.Normal);
@@ -65,8 +65,8 @@ namespace SportNet
 				};
 				return footer;
 			}
-		
 		}
+
 		public override void ItemSelected (UICollectionView collectionView, NSIndexPath indexPath)
 		{
 			AppDelegate appDelegate = (AppDelegate)UIApplication.SharedApplication.Delegate;
@@ -76,8 +76,8 @@ namespace SportNet
 			bigPicture.ImageSources = ImageSources;
 			((MainTabController)UIApplication.SharedApplication.Delegate.Window.RootViewController).
 				Pictures.InternalTopNavigation.PushViewController (bigPicture,true);
-
 		}
+
 		public override int GetItemsCount (UICollectionView collectionView, int section)
 		{
 			return ImageSources.Length;

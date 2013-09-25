@@ -26,6 +26,7 @@ namespace SportNet
 			if (cell == null) {
 				cell = new VideoCell (cellId);
 			}
+			cell.ContentView.BackgroundColor = UIColor.FromRGB (26, 26, 26);
 			cell.SetVideoCell (items [indexPath.Row].Heading, items [indexPath.Row].Category, items [indexPath.Row].ImageSource);
 			return cell;
 		}

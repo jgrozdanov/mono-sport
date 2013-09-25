@@ -26,6 +26,9 @@ namespace SportNet
 			if (cell == null) {
 				cell = new UITableViewCell (UITableViewCellStyle.Default, cellid);
 			}
+			cell.BackgroundColor = UIColor.Black;
+			cell.ContentView.BackgroundColor = UIColor.Black;
+			cell.TextLabel.BackgroundColor = UIColor.Clear;
 			cell.TextLabel.Text = categories [indexPath.Row];
 			cell.TextLabel.Font = UIFont.FromName ("Helvetica-Bold", 17f);
 			cell.TextLabel.TextColor = UIColor.FromRGB (102, 102, 102);

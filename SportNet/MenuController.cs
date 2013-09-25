@@ -27,7 +27,9 @@ namespace SportNet
 			TableView.ScrollsToTop = false;
 			TableView.SeparatorColor = UIColor.FromRGB (38, 38, 38);
 			TableView.AllowsMultipleSelection = false;
+			TableView.SeparatorStyle = UITableViewCellSeparatorStyle.SingleLine;
 		}
+
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();

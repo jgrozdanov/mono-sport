@@ -13,6 +13,9 @@ namespace SportNet
 	partial class LiveScoreViewController
 	{
 		[Outlet]
+		MonoTouch.UIKit.UITableView Categories { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UINavigationBar navBar { get; set; }
 
 		[Outlet]
@@ -20,6 +23,9 @@ namespace SportNet
 
 		[Outlet]
 		MonoTouch.UIKit.UIImageView SportImageToday { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIButton SwitchCategory { get; set; }
 
 		[Outlet]
 		MonoTouch.UIKit.UIScrollView SwitchTo { get; set; }
@@ -34,13 +40,39 @@ namespace SportNet
 		MonoTouch.UIKit.UIBarButtonItem Yesterday { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UITableView YesterdayCategories { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIButton YesterdaySwitchCategory { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UITableView YesterdayTable { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (Categories != null) {
+				Categories.Dispose ();
+				Categories = null;
+			}
+
 			if (navBar != null) {
 				navBar.Dispose ();
 				navBar = null;
+			}
+
+			if (SportImage != null) {
+				SportImage.Dispose ();
+				SportImage = null;
+			}
+
+			if (SportImageToday != null) {
+				SportImageToday.Dispose ();
+				SportImageToday = null;
+			}
+
+			if (SwitchCategory != null) {
+				SwitchCategory.Dispose ();
+				SwitchCategory = null;
 			}
 
 			if (SwitchTo != null) {
@@ -68,14 +100,14 @@ namespace SportNet
 				YesterdayTable = null;
 			}
 
-			if (SportImage != null) {
-				SportImage.Dispose ();
-				SportImage = null;
+			if (YesterdayCategories != null) {
+				YesterdayCategories.Dispose ();
+				YesterdayCategories = null;
 			}
 
-			if (SportImageToday != null) {
-				SportImageToday.Dispose ();
-				SportImageToday = null;
+			if (YesterdaySwitchCategory != null) {
+				YesterdaySwitchCategory.Dispose ();
+				YesterdaySwitchCategory = null;
 			}
 		}
 	}

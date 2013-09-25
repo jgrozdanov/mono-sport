@@ -72,6 +72,7 @@ namespace SportNet
 
 
 		}
+
 		public void SetLiveScoreCell(string teamOne,string teamTwo, string result, string image,int minute,string starttime)
 		{
 			this.teamOne.Text = teamOne;
@@ -95,9 +96,9 @@ namespace SportNet
 			this.separatingLine.Image = UIImage.FromFile ("./Assets/divider.png");
 		}
 
-
 		public override void LayoutSubviews ()
 		{
+			this.ContentView.BackgroundColor = UIColor.FromRGB (26, 26, 26);
 			timeIndicator.Frame = new RectangleF (8, 15, 50, 16);  
 			loader.Frame = new RectangleF(33, 12, 22, 22);
 	
@@ -115,9 +116,5 @@ namespace SportNet
 			separatingLine.Frame = new RectangleF (0,ContentView.Bounds.Height - 1, 285, 1);
 
 		}
-
-		//public LiveScoreCell (IntPtr handle) : base (handle)
-		//{
-		//}
 	}
 }

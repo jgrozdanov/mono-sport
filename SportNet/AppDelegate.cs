@@ -33,7 +33,7 @@ namespace SportNet
 		{
 			Window = new UIWindow (UIScreen.MainScreen.Bounds);
 			IsLoggedIn = true;
-			HasPreferences = false;
+			HasPreferences = true;
 
 			if (IsLoggedIn) {
 				tabController = new MainTabController ();
@@ -53,6 +53,7 @@ namespace SportNet
 				Window.RootViewController = welcomeNav;
 			}
 
+			UIApplication.SharedApplication.StatusBarStyle = UIStatusBarStyle.LightContent;
 			Window.MakeKeyAndVisible ();
 			return true;
 		}

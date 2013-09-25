@@ -581,8 +581,10 @@ namespace MonoTouch.SlideoutNavigation
 			};
 
 			// custom styling
-			_internalTopNavigation.NavigationBar.SetBackgroundImage (UIImage.FromFile ("./Assets/navbar.png"), 
-			                                                         MonoTouch.UIKit.UIBarMetrics.Default);
+			//_internalTopNavigation.NavigationBar.SetBackgroundImage (UIImage.FromFile ("./Assets/navbar.png"), 
+			//                                                         MonoTouch.UIKit.UIBarMetrics.Default);
+			_internalTopNavigation.NavigationBar.BarTintColor = UIColor.Black;
+
 
 			_internalTopView.AddChildViewController (_internalTopNavigation);
 			_internalTopView.View.AddSubview (_internalTopNavigation.View);
@@ -636,10 +638,10 @@ namespace MonoTouch.SlideoutNavigation
 		/// <param name='toInterfaceOrientation'>
 		/// If set to <c>true</c> to interface orientation.
 		/// </param>
-		public override bool ShouldAutorotateToInterfaceOrientation (UIInterfaceOrientation toInterfaceOrientation)
-		{
-			return true;
-		}
+		//public override bool ShouldAutorotateToInterfaceOrientation (UIInterfaceOrientation toInterfaceOrientation)
+		//{
+		//	return true;
+		//}
 
 		/// <summary>
 		/// Sets the menu navigation background image.

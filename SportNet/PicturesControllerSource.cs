@@ -30,6 +30,7 @@ namespace SportNet
 				if (cell == null) {
 					cell = new PicturesFeaturedCell (cellId);
 				}
+				cell.ContentView.BackgroundColor = UIColor.FromRGB (26, 26, 26);
 				cell.SetPicturesFeaturedCell (items [indexPath.Row].Heading, items [indexPath.Row].Category, items [indexPath.Row].ImageSource, 
 				                              items [indexPath.Row].PhotoSource, items [indexPath.Row].PicturesCount );
 				return cell;
@@ -40,6 +41,7 @@ namespace SportNet
 				if (cell == null) {
 					cell = new PicturesControllerCell (cellId);
 				}
+				cell.ContentView.BackgroundColor = UIColor.FromRGB (26, 26, 26);
 				cell.SetPictureCell (items [indexPath.Row].Heading, items [indexPath.Row].Category, items [indexPath.Row].ImageSource, 
 				                     items [indexPath.Row].PhotoSource, items [indexPath.Row].PicturesCount);
 				return cell;

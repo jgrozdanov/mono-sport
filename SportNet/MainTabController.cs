@@ -10,9 +10,9 @@ namespace SportNet
 		private SlideoutNavigationController news;
 		private SlideoutNavigationController pictures; 
 		private SlideoutNavigationController video;
-		private NewsController tableNews;
+		private UITableViewController tableNews;
 		private PicturesController tablePictures;
-		private LiveScoreViewController liveScore;
+		private UINavigationController liveScore;
 
 		public SlideoutNavigationController News {
 			get 
@@ -34,7 +34,15 @@ namespace SportNet
 
 			// instantiate the table view from the storyboard
 			UIStoryboard board = UIStoryboard.FromName ("MainStoryboard", null);
-			tableNews = (NewsController)board.InstantiateViewController ("newscontroller");
+			// dashboard if some favourites saved otherwise the plain
+			// table view
+			if (((AppDelegate)UIApplication.SharedApplication.Delegate).HasPreferences) {
+				tableNews = (HomeController)board.InstantiateViewController ("homecontroller");
+			} 
+			else {
+				tableNews = (NewsController)board.InstantiateViewController ("newscontroller");
+			}
+
 			var menu = (MenuController)board.InstantiateViewController ("menucontroller");
 			news.TopView = tableNews;
 			news.MenuViewLeft = menu;
@@ -47,10 +55,10 @@ namespace SportNet
 			pictures.MenuViewLeft = menu;
 			pictures.DisplayNavigationBarOnLeftMenu = false;
 
-
-			liveScore = (LiveScoreViewController)board.InstantiateViewController ("lscv");
-
-
+			liveScore = new UINavigationController ();
+			LiveScoreViewController liveScoreScroll = (LiveScoreViewController)board.InstantiateViewController ("lscv");
+			liveScore.PushViewController(liveScoreScroll, false);
+			liveScore.NavigationBar.BarTintColor = UIColor.Black;
 
 			video = new SlideoutNavigationController ();
 			menu = (MenuController)board.InstantiateViewController ("menucontroller");
@@ -87,35 +95,22 @@ namespace SportNet
 			// Global appearance properties
 			UINavigationBar.Appearance.SetTitleTextAttributes 
 				(new UITextAttributes { TextColor = UIColor.FromRGB(102, 102, 102) });
-			UITabBar.Appearance.BackgroundImage = UIImage.FromFile ("./Assets/tabbar.png");
-			UITabBar.Appearance.SelectionIndicatorImage = UIImage.FromFile ("./Assets/tabselection.png");
+			UIBarButtonItem.Appearance.TintColor = UIColor.White;
+			//UITabBar.Appearance.BackgroundImage = UIImage.FromFile ("./Assets/tabbar.png");
+			//UITabBar.Appearance.SelectionIndicatorImage = UIImage.FromFile ("./Assets/tabselection.png");
+			UITabBar.Appearance.BarTintColor = UIColor.Black;
+			UITabBar.Appearance.TintColor = UIColor.White;
 
-			news.TabBarItem = new UITabBarItem ();
-			news.TabBarItem.Title = "News";
-			news.TabBarItem.SetFinishedImages (UIImage.FromFile("./Assets/news-active.png"),
-			                                      UIImage.FromFile("./Assets/news.png"));
-
-			pictures.TabBarItem = new UITabBarItem ();
-			pictures.TabBarItem.Title = "Pictures";
-			pictures.TabBarItem.SetFinishedImages (UIImage.FromFile("./Assets/pictures-active.png"),
-			                                       UIImage.FromFile("./Assets/pictures.png"));
-
-			video.TabBarItem = new UITabBarItem ();
-			video.TabBarItem.Title = "Video";
-			video.TabBarItem.SetFinishedImages (UIImage.FromFile("./Assets/video-active.png"),
-			                                       UIImage.FromFile("./Assets/video.png"));
-
-			liveScore.TabBarItem = new UITabBarItem ();
-			liveScore.TabBarItem.Title = "LiveScore";
-			liveScore.TabBarItem.SetFinishedImages (UIImage.FromFile("./Assets/livescore-active.png"),
-			                                    UIImage.FromFile("./Assets/livescore.png"));
+			news.TabBarItem = new UITabBarItem ("News", UIImage.FromFile ("./Assets/news-active.png"), UIImage.FromFile ("./Assets/news.png"));
+			pictures.TabBarItem = new UITabBarItem ("Pictures", UIImage.FromFile("./Assets/pictures-active.png"), UIImage.FromFile("./Assets/pictures.png"));
+			video.TabBarItem = new UITabBarItem ("Video", UIImage.FromFile("./Assets/video-active.png"), UIImage.FromFile("./Assets/video.png"));
+			liveScore.TabBarItem = new UITabBarItem ("Livescore", UIImage.FromFile("./Assets/livescore-active.png"), UIImage.FromFile("./Assets/livescore.png"));
 
 			tableNews.View.BackgroundColor = UIColor.FromRGB (26, 26, 26);
 			tableNews.TableView.SeparatorStyle = UITableViewCellSeparatorStyle.None;
 
 			tablePictures.View.BackgroundColor = UIColor.FromRGB (26, 26, 26);
 			tablePictures.TableView.SeparatorStyle = UITableViewCellSeparatorStyle.None;
-
 		}
 	}
 }

@@ -14,9 +14,10 @@ namespace SportNet
 
 		public PictureBigCollectionController (IntPtr handle) : base (handle)
 		{
-
 		}
-		public PictureBigCollectionController (UICollectionViewLayout layout){
+
+		public PictureBigCollectionController (UICollectionViewLayout layout)
+		{
 		}
 
 		public override void ViewWillAppear (bool animated)
@@ -33,14 +34,12 @@ namespace SportNet
 			button.CustomView = custom;
 
 			this.NavigationItem.LeftBarButtonItem = button;
-
-		
 		}
 
 		public override UICollectionViewCell GetCell (UICollectionView collectionView, NSIndexPath indexPath)
 		{
 			var cell = (PictureBigCollectionCell)collectionView.DequeueReusableCell (PictureBigCollectionCell.CellId, indexPath);
-			cell.Image = UIImage.FromFile ("./Assets/profilebig.png");
+			cell.Image = UIImage.FromFile ("./Assets/article-pic.jpg");
 			return cell;
 		}
 
@@ -48,6 +47,5 @@ namespace SportNet
 		{
 			return ImageSources.Length;
 		}
-
 	}
 }

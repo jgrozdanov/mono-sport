@@ -81,6 +81,9 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="monotouch" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\Downloads\json.net-4.5.11\lib\ios\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -174,10 +177,6 @@
       <DependentUpon>AboutAppController.cs</DependentUpon>
     </Compile>
     <Compile Include="ContentLanguageControllerSource.cs" />
-    <Compile Include="LiveScoreController.cs" />
-    <Compile Include="LiveScoreController.designer.cs">
-      <DependentUpon>LiveScoreController.cs</DependentUpon>
-    </Compile>
     <Compile Include="LiveScoreViewController.cs" />
     <Compile Include="LiveScoreViewController.designer.cs">
       <DependentUpon>LiveScoreViewController.cs</DependentUpon>
@@ -217,10 +216,12 @@
       <DependentUpon>PictureBigCollectionView.cs</DependentUpon>
     </Compile>
     <Compile Include="PictureBigCollectionCell.cs" />
-    <Compile Include="LineLayout.cs" />
-    <Compile Include="LineLayout.designer.cs">
-      <DependentUpon>LineLayout.cs</DependentUpon>
+    <Compile Include="HomeControllerSource.cs" />
+    <Compile Include="HomeController.cs" />
+    <Compile Include="HomeController.designer.cs">
+      <DependentUpon>HomeController.cs</DependentUpon>
     </Compile>
+    <Compile Include="RestRequest.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />
@@ -283,11 +284,13 @@
     <BundleResource Include="Assets\indicator%402x.png" />
     <BundleResource Include="Assets\photo%402x.png" />
     <BundleResource Include="Assets\photoSmall.png" />
+    <BundleResource Include="Assets\cell%402x.png" />
+    <BundleResource Include="Resources\Default-568h%402x.png" />
+    <BundleResource Include="Assets\dropdown%402x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Assets\" />
-    <Folder Include="Models\" />
     <Folder Include="Lib\" />
   </ItemGroup>
 </Project>
