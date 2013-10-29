@@ -9,13 +9,14 @@ namespace SportNet
 {
 	public partial class LiveScoreCell : UITableViewCell
 	{
-		public UILabel teamOne;
-		public UILabel teamTwo;
+		public UILabel teams;
 		public UILabel result;
 		public UILabel timeIndicator;
 		public UIImageView loader;
-		public UILabel hyphen;
 		public UIImageView separatingLine;
+
+		private string t1;
+		private string t2;
 
 		public LiveScoreCell (NSString cellId) : base(UITableViewCellStyle.Default, cellId)
 		{
@@ -23,23 +24,11 @@ namespace SportNet
 
 			base.LayoutSubviews ();
 
-			hyphen = new UILabel ();
-			hyphen.Text = "-";
-			hyphen.TextColor = UIColor.White;
-			hyphen.TextAlignment = UITextAlignment.Center;
-			hyphen.BackgroundColor = UIColor.Clear;
-
-			teamOne = new UILabel ();
-			teamOne.TextColor = UIColor.White;
-			teamOne.Font = UIFont.FromName ("Helvetica-Bold", 12f);
-			teamOne.BackgroundColor = UIColor.Clear;
-			teamOne.Lines = 2;
-
-			teamTwo = new UILabel ();
-			teamTwo.TextColor = UIColor.White;
-			teamTwo.Font = UIFont.FromName ("Helvetica-Bold", 12f);
-			teamTwo.BackgroundColor = UIColor.Clear;
-			teamTwo.Lines = 2;
+			teams = new UILabel ();
+			teams.TextColor = UIColor.White;
+			teams.Font = UIFont.FromName ("Helvetica-Bold", 12f);
+			teams.BackgroundColor = UIColor.Clear;
+			teams.Lines = 1;
 
 			timeIndicator = new UILabel ();
 			timeIndicator.TextColor = UIColor.FromRGB (102, 102, 102);
@@ -59,40 +48,63 @@ namespace SportNet
 			separatingLine.ContentMode = UIViewContentMode.ScaleAspectFill;
 			separatingLine.ClipsToBounds = true;
 
-
-
-			ContentView.Add (teamOne);
-			ContentView.Add (teamTwo);
-			ContentView.Add (hyphen);
+			ContentView.Add (teams);
 			ContentView.Add (result);
 			ContentView.Add (loader);
 			ContentView.Add (result);
 			ContentView.Add (timeIndicator);
 			ContentView.Add (separatingLine);
-
-
 		}
 
-		public void SetLiveScoreCell(string teamOne,string teamTwo, string result, string image,int minute,string starttime)
+		public void SetLiveScoreCell(string teamOne,string teamTwo, string result, string state, string starttime)
 		{
-			this.teamOne.Text = teamOne;
-			this.teamTwo.Text = teamTwo;
+			// we need these for the layout
+			t1 = teamOne;
+			t2 = teamTwo;
+
+			this.teams.Text = teamOne + " - " + teamTwo;
+	
 			this.result.Text = result;
-			if (minute == -1) {
+
+			int n;
+			if (int.TryParse (state.Substring(0,1), out n)) {
+				if (state.Length >= 3) {
+					state = state.Substring (0, 3);
+				}
+
+				this.timeIndicator.TextColor = UIColor.Red;
+				this.timeIndicator.Text = state + "'";
+				this.loader.AnimationImages = new UIImage[] {
+					UIImage.FromFile("./Assets/loader1.png"),
+					UIImage.FromFile("./Assets/loader2.png"),
+					UIImage.FromFile("./Assets/loader3.png"),
+					UIImage.FromFile("./Assets/loader4.png"),
+					UIImage.FromFile("./Assets/loader5.png"),
+					UIImage.FromFile("./Assets/loader6.png"),
+					UIImage.FromFile("./Assets/loader7.png"),
+					UIImage.FromFile("./Assets/loader8.png"),
+				};
+				this.loader.AnimationRepeatCount = 0;
+				this.loader.AnimationDuration = 1;
+				this.loader.StartAnimating ();
+				this.loader.Hidden = false;
+			} 
+			else if (state == "Finished" || state == "Ended") {
 				this.timeIndicator.Text = "Finished";
 				this.timeIndicator.TextColor = UIColor.FromRGB (102, 102, 102);
 				this.loader.Hidden = true;
-			} else if (minute == 0) {
+			} 
+			else if (state == "Not started") {
 				this.timeIndicator.Text = starttime;
 				this.timeIndicator.TextColor = UIColor.FromRGB (102, 102, 102);
-				this.result.Text="";
 				this.loader.Hidden = true;
-			} else {
-				this.timeIndicator.TextColor = UIColor.Red;
-				this.timeIndicator.Text = string.Format("{0}'", minute);
-				this.loader.Image = UIImage.FromFile ("./Assets/indicator.png");
-				this.loader.Hidden = false;
+			} 
+			else {
+				this.timeIndicator.Text = state;
+				this.timeIndicator.TextColor = UIColor.FromRGB (102, 102, 102);
+				this.loader.Hidden = true;
 			}
+
 			this.separatingLine.Image = UIImage.FromFile ("./Assets/divider.png");
 		}
 
@@ -101,18 +113,22 @@ namespace SportNet
 			this.ContentView.BackgroundColor = UIColor.FromRGB (26, 26, 26);
 			timeIndicator.Frame = new RectangleF (8, 15, 50, 16);  
 			loader.Frame = new RectangleF(33, 12, 22, 22);
-	
-			teamOne.SizeToFit ();
-			float maxTeamOneWidth = Math.Min (teamOne.Frame.Width, (ContentView.Bounds.Width - 135) / 2);
-			teamOne.Frame = new RectangleF(68, 15,maxTeamOneWidth, 16);
-			teamOne.SizeToFit ();
-			hyphen.Frame = new RectangleF (68+maxTeamOneWidth, 15, 15, 16);
-			teamTwo.SizeToFit ();
-			float maxTeamTwoWidth = Math.Min (teamTwo.Frame.Width, (ContentView.Bounds.Width - 135) / 2);
-			teamTwo.Frame = new RectangleF(68+maxTeamOneWidth+15, 15, maxTeamTwoWidth, 16);
-			teamTwo.SizeToFit ();
-			result.Frame = new RectangleF(ContentView.Bounds.Width-80, 18, 40, 12);
 
+			var teamsText = (NSString)teams.Text;
+			var teamsTextSize = teamsText.GetSizeUsingAttributes (new UIStringAttributes ());
+
+			// two line label
+			if (teamsTextSize.Width > 160) {
+				teams.Lines = 2;
+				teams.Text = t1 + " -\n" + t2;
+				teams.Frame = new RectangleF (68, 8, 160, 30);
+				teams.SizeToFit ();
+			} 
+			else {
+				teams.Frame = new RectangleF (68, 16, 160, 16);
+			}
+
+			result.Frame = new RectangleF(ContentView.Bounds.Width-80, 18, 40, 12);
 			separatingLine.Frame = new RectangleF (0,ContentView.Bounds.Height - 1, 285, 1);
 
 		}

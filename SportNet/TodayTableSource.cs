@@ -1,35 +1,42 @@
 using System;
 using System.Drawing;
-
+using System.Collections.Generic;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using SportNet.Web.Models;
+using SportNet.Web.Models.LiveScore;
 
 namespace SportNet
 {
 	public class TodayTableSource : UITableViewSource
 	{
-		private LiveScoreCellModel[] items;
+		private LiveScoreViewModel items;
+		private List<MatchModel> matches;
 		private NSString cellId = (NSString)"livescorecell";
-		public TodayTableSource (LiveScoreCellModel[] events)
+
+		public TodayTableSource (LiveScoreViewModel model)
 		{
-			this.items = events;
+			this.items = model;
+			matches = new List<MatchModel>();
+
+			var tournaments = items.Tournaments;
+			foreach (var tournament in tournaments) {
+				var games = tournament.Matches;
+				foreach (var game in games) {
+					matches.Add (game);
+				}
+			}
 		}
 
 		public override int RowsInSection (UITableView tableview, int section)
 		{
-			return items.Length;
+			return matches.Count;
 		}
-
-		//---------------------------------------------------------------------------------------------
 
 		private void setCell(LiveScoreCell cell, NSIndexPath indexPath)
 		{
-//			cell.TextLabel.TextColor = UIColor.White;
-//			cell.ContentView.BackgroundColor = UIColor.FromRGB (26, 26, 26);
-//			cell.TextLabel.BackgroundColor = UIColor.FromRGB (26, 26, 26);
-//			cell.AccessoryView.BackgroundColor = UIColor.FromRGB (26, 26, 26);
-			cell.SetLiveScoreCell (items [indexPath.Row].TeamOne, items [indexPath.Row].TeamTwo, items [indexPath.Row].Result, 
-			                       items [indexPath.Row].LoaderSource,items [indexPath.Row].TimeIndicator,items [indexPath.Row].StartTime);
+			cell.SetLiveScoreCell (matches [indexPath.Row].Team1, matches [indexPath.Row].Team2, matches [indexPath.Row].Result, 
+			                       matches [indexPath.Row].State, matches [indexPath.Row].MatchTime);
 		}
 
 		public virtual UITableViewCellSeparatorStyle SeparatorStyle { get; set; }
@@ -42,12 +49,6 @@ namespace SportNet
 			};
 			setCell (cell, indexPath);
 			return cell;
-
-
-		
 		}
-
-
-
 	}
 }

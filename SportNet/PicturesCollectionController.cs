@@ -4,17 +4,27 @@ using System;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using System.Drawing;
+using SportNet.Web.Models;
 
 namespace SportNet
 {
 	public partial class PicturesCollectionController : UICollectionViewController
 	{
-		public string[] ImageSources { get; set; }
-		public string HeadLine { get; set; }
-		public string NumberOfPictures { get; set; }
+		public GalleryArticleModel Items { get; set; }
+		public UIActivityIndicatorView Spinner { get; set; }
 
 		public PicturesCollectionController (IntPtr handle) : base (handle)
 		{
+			Spinner = new UIActivityIndicatorView (UIActivityIndicatorViewStyle.WhiteLarge);
+			Spinner.Center = new PointF (160, 160);
+			Spinner.HidesWhenStopped = true;
+			CollectionView.AddSubview (Spinner);
+			Spinner.StartAnimating ();
+
+			// lets fake a model here so the controller can initialize properly
+			// we have a spinner view covering for us anyway and we will reload
+			// the Items property as soon as the request is ready
+			Items = new GalleryArticleModel ();
 		}
 
 		public override void ViewWillAppear (bool animated)
@@ -36,7 +46,7 @@ namespace SportNet
 		public override UICollectionViewCell GetCell (UICollectionView collectionView, NSIndexPath indexPath)
 		{
 			var cell = (PictureCollectionCell)collectionView.DequeueReusableCell (PictureCollectionCell.CellId, indexPath);
-			cell.Image = UIImage.FromFile ("./Assets/profilebig.png");
+			AppDelegate.MakeImageFromURL (cell.Image, Items.Images[indexPath.Row]);
 			return cell;
 		}
 
@@ -45,13 +55,13 @@ namespace SportNet
 			if (elementKind == (NSString)"UICollectionElementKindSectionHeader") {
 				PictureHeaderVIew header = (PictureHeaderVIew)collectionView.DequeueReusableSupplementaryView 
 					(UICollectionElementKindSection.Header, (NSString)"header", indexPath);
-				header.title.Text = HeadLine;
+				header.title.Frame = new RectangleF (20, 15, 230, 300);
+				header.title.Text = Items.Title;
+				header.title.Lines = 0;
 				header.title.SizeToFit ();
-				header.SizeToFit ();
 				header.photo.Image = UIImage.FromFile ("./Assets/photo.png");
-				header.picturesCount.Text = NumberOfPictures;
-				float height = header.title.Frame.Height;
-
+				header.picturesCount.Text = Items.Images.Count.ToString();
+				
 				return header;
 			} 
 			else {
@@ -69,18 +79,18 @@ namespace SportNet
 
 		public override void ItemSelected (UICollectionView collectionView, NSIndexPath indexPath)
 		{
-			AppDelegate appDelegate = (AppDelegate)UIApplication.SharedApplication.Delegate;
 			UIStoryboard board = UIStoryboard.FromName ("MainStoryboard", null);
 			PictureBigCollectionController bigPicture = (PictureBigCollectionController)board.InstantiateViewController ("pictureBigCollectionController");
-			bigPicture.Title = string.Format ("{0}/{1}", indexPath.Row+1, NumberOfPictures);
-			bigPicture.ImageSources = ImageSources;
+			bigPicture.Title = string.Format ("{0}/{1}", indexPath.Row + 1, Items.Images.Count);
+			bigPicture.Items = Items;
+			bigPicture.StartingItem = indexPath.Row;
 			((MainTabController)UIApplication.SharedApplication.Delegate.Window.RootViewController).
 				Pictures.InternalTopNavigation.PushViewController (bigPicture,true);
 		}
 
 		public override int GetItemsCount (UICollectionView collectionView, int section)
 		{
-			return ImageSources.Length;
+			return Items.Images.Count;
 		}
 	}
 }

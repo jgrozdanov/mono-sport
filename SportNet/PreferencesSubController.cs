@@ -5,17 +5,31 @@ using System.Drawing;
 
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using Newtonsoft.Json;
+using SportNet.Web.Models;
 
 namespace SportNet
 {
 	public partial class PreferencesSubController : UIViewController
 	{
+		private UIActivityIndicatorView spinner;
+
 		public PreferencesSubController (IntPtr handle) : base (handle)
 		{
 		}
 
+		public int CategoryId { get; set; }
+		public bool ParentChecked { get; set; }
+
 		public override void ViewWillAppear (bool animated)
 		{
+			spinner = new UIActivityIndicatorView (UIActivityIndicatorViewStyle.WhiteLarge);
+			spinner.Center = new PointF (160, 160);
+			spinner.HidesWhenStopped = true;
+			View.AddSubview (spinner);
+			spinner.StartAnimating ();
+			TableView.Hidden = true;
+
 			var button = new UIBarButtonItem ("Back", UIBarButtonItemStyle.Plain, null);
 			var custom = new UIButton (new RectangleF (0, 0, 26, 15));
 			custom.SetBackgroundImage(UIImage.FromFile("./Assets/back.png"), UIControlState.Normal);
@@ -24,26 +38,27 @@ namespace SportNet
 
 			this.NavigationItem.LeftBarButtonItem = button;
 
-			this.Title = "Football";
-
-			var leagues = new PreferenceModel[] {
-				new PreferenceModel() { Title = "Select All", HasChild = false, Selected = false },
-				new PreferenceModel() { Title = "Spain", HasChild = true, Selected = false },
-				new PreferenceModel() { Title = "France", HasChild = false, Selected = false },
-				new PreferenceModel() { Title = "Italy", HasChild = true, Selected = true },
-				new PreferenceModel() { Title = "Spain", HasChild = true, Selected = true },
-				new PreferenceModel() { Title = "France", HasChild = false, Selected = false },
-				new PreferenceModel() { Title = "Italy", HasChild = true, Selected = false },
-				new PreferenceModel() { Title = "Spain", HasChild = true, Selected = false },
-				new PreferenceModel() { Title = "France", HasChild = false, Selected = false },
-				new PreferenceModel() { Title = "Italy", HasChild = true, Selected = false },
-				new PreferenceModel() { Title = "Spain", HasChild = true, Selected = false },
-				new PreferenceModel() { Title = "France", HasChild = false, Selected = false },
-				new PreferenceModel() { Title = "Italy", HasChild = true, Selected = false }
+			var request = new RestRequest ();
+			request.RequestFinished += (object sender, RequestEndedArgs e) => {
+				var data = (AddContentModel)JsonConvert.DeserializeObject(e.Result, typeof(AddContentModel));
+				InvokeOnMainThread(delegate {
+					AppDelegate.SubCategories = data;
+					var all = new AddContentItem();
+					all.Name = "All from " + data.ParentCategory.Name;
+					all.HasChildren = false;
+					all.Checked = ParentChecked;
+					all.Id = data.ParentCategory.Id;
+					AppDelegate.SubCategories.Categories.Insert(0, all);
+					TableView.ReloadData();
+					TableView.Hidden = false;
+					spinner.StopAnimating();
+				});
 			};
+			request.Send (string.Format(RequestConfig.SubCategories, CategoryId), "GET");
 
-			this.TableView.Source = new PreferencesSubControllerSource (leagues);
+			this.TableView.Source = new PreferencesSubControllerSource ();
 			this.TableView.AllowsMultipleSelection = true;
 		}
+
 	}
 }

@@ -5,15 +5,20 @@ using System;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using System.Drawing;
+using SportNet.Web.Models;
 
 namespace SportNet
 {
 	public partial class SignUpController : UIViewController
 	{
+		RegisterModel model;
+
 		public SignUpController (IntPtr handle) : base (handle)
 		{
 		}
+
 		UIImagePickerController imagePicker;
+
 		public override void ViewWillAppear (bool animated)
 		{
 			if (((AppDelegate)UIApplication.SharedApplication.Delegate).profilePhoto == null) {
@@ -56,13 +61,18 @@ namespace SportNet
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-			this.CreateAccount.TouchUpInside += (object sender, EventArgs e) => {
-				UIStoryboard board = UIStoryboard.FromName ("MainStoryboard", null);
-				PreferencesController welcome = (PreferencesController)board.InstantiateViewController ("preferencescontroller");
-				welcome.ImageSources = new string[] { "aaa", "a", "a", "a", "a", "a", "a", "a", "a" };
 
-				this.NavigationController.PushViewController(welcome, true);
+			this.CreateAccount.TouchUpInside += (object sender, EventArgs e) => {
+				//UIStoryboard board = UIStoryboard.FromName ("MainStoryboard", null);
+				//PreferencesController welcome = (PreferencesController)board.InstantiateViewController ("preferencescontroller");
+				//welcome.ImageSources = new string[] { "aaa", "a", "a", "a", "a", "a", "a", "a", "a" };
+
+				//this.NavigationController.PushViewController(welcome, true);
+				model = new RegisterModel { Email = this.Email.Text, FirstName = this.FirstName.Text, LastName = this.LastName.Text, Password = this.Password.Text };
+				var request = new RestRequest();
+				request.Send("http://www.sport.net/api/content/register", "POST", model);
 			};
+
 			this.ImagePicker.TouchUpInside += (s, e) => {
 				// create a new picker controller
 				imagePicker = new UIImagePickerController ();

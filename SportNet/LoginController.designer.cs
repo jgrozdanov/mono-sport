@@ -16,22 +16,19 @@ namespace SportNet
 		MonoTouch.UIKit.UITextField Email { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIButton Facebook { get; set; }
+		MonoTouch.UIKit.UIView FacebookView { get; set; }
 
 		[Outlet]
 		MonoTouch.UIKit.UIButton ForgotPassword { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIButton GooglePlus { get; set; }
+		MonoTouch.UIKit.UIView GoogleView { get; set; }
 
 		[Outlet]
 		MonoTouch.UIKit.UIButton Login { get; set; }
 
 		[Outlet]
 		MonoTouch.UIKit.UITextField Password { get; set; }
-
-		[Outlet]
-		MonoTouch.UIKit.UIButton Twitter { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
@@ -40,19 +37,9 @@ namespace SportNet
 				Email = null;
 			}
 
-			if (Facebook != null) {
-				Facebook.Dispose ();
-				Facebook = null;
-			}
-
 			if (ForgotPassword != null) {
 				ForgotPassword.Dispose ();
 				ForgotPassword = null;
-			}
-
-			if (GooglePlus != null) {
-				GooglePlus.Dispose ();
-				GooglePlus = null;
 			}
 
 			if (Login != null) {
@@ -65,9 +52,14 @@ namespace SportNet
 				Password = null;
 			}
 
-			if (Twitter != null) {
-				Twitter.Dispose ();
-				Twitter = null;
+			if (FacebookView != null) {
+				FacebookView.Dispose ();
+				FacebookView = null;
+			}
+
+			if (GoogleView != null) {
+				GoogleView.Dispose ();
+				GoogleView = null;
 			}
 		}
 	}

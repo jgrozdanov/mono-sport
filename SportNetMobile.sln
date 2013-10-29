@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportNet", "SportNet\SportNet.csproj", "{F4C6F6F0-0EB0-497C-AEE7-98641ACA21A1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportNet.Web.Models", "..\Sport.Net\SportNew.DTOs\SportNet.Web.Models.csproj", "{840E13A2-5257-4743-AF05-27DED2C2DEC7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|iPhoneSimulator = Debug|iPhoneSimulator
@@ -13,6 +15,18 @@ Global
 		AppStore|iPhone = AppStore|iPhone
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{840E13A2-5257-4743-AF05-27DED2C2DEC7}.Ad-Hoc|iPhone.ActiveCfg = Release|Any CPU
+		{840E13A2-5257-4743-AF05-27DED2C2DEC7}.Ad-Hoc|iPhone.Build.0 = Release|Any CPU
+		{840E13A2-5257-4743-AF05-27DED2C2DEC7}.AppStore|iPhone.ActiveCfg = Release|Any CPU
+		{840E13A2-5257-4743-AF05-27DED2C2DEC7}.AppStore|iPhone.Build.0 = Release|Any CPU
+		{840E13A2-5257-4743-AF05-27DED2C2DEC7}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{840E13A2-5257-4743-AF05-27DED2C2DEC7}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{840E13A2-5257-4743-AF05-27DED2C2DEC7}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{840E13A2-5257-4743-AF05-27DED2C2DEC7}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{840E13A2-5257-4743-AF05-27DED2C2DEC7}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{840E13A2-5257-4743-AF05-27DED2C2DEC7}.Release|iPhone.Build.0 = Release|Any CPU
+		{840E13A2-5257-4743-AF05-27DED2C2DEC7}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{840E13A2-5257-4743-AF05-27DED2C2DEC7}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{F4C6F6F0-0EB0-497C-AEE7-98641ACA21A1}.Ad-Hoc|iPhone.ActiveCfg = Ad-Hoc|iPhone
 		{F4C6F6F0-0EB0-497C-AEE7-98641ACA21A1}.Ad-Hoc|iPhone.Build.0 = Ad-Hoc|iPhone
 		{F4C6F6F0-0EB0-497C-AEE7-98641ACA21A1}.AppStore|iPhone.ActiveCfg = AppStore|iPhone

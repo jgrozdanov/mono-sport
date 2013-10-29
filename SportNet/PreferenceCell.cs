@@ -42,10 +42,25 @@ namespace SportNet
 			this.ContentView.AddSubview (details);
 		}
 
-		public UIImage Image 
+		public void SetCellState(bool check)
 		{
+			if (check) {
+				this.Details.BackgroundColor = UIColor.FromRGBA (255, 0, 0, 200);
+				this.Indicator.Image = UIImage.FromFile ("./Assets/check.png");
+			} 
+			else {
+				this.Details.BackgroundColor = UIColor.FromRGBA (0, 0, 0, 200);
+				this.Indicator.Image = UIImage.FromFile ("./Assets/plus.png");
+			}
+		}
+
+		public UIImageView Image 
+		{
+			get {
+				return this.image;
+			}
 			set {
-				this.image.Image = value;
+				this.image = value;
 			}
 		}
 
@@ -60,6 +75,16 @@ namespace SportNet
 		{
 			get {
 				return this.indicator;
+			}
+		}
+
+		public string Category
+		{
+			get {
+				return this.category.Text;
+			}
+			set {
+				this.category.Text = value;
 			}
 		}
 	}

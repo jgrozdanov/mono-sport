@@ -3,27 +3,23 @@ using System.Drawing;
 
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using Newtonsoft.Json;
+using SportNet.Web.Models;
 
 namespace SportNet
 {
 	public class PreferencesSubControllerSource : UITableViewSource
 	{
-		private PreferenceModel[] items;
 		private NSString cellId = (NSString)"leaguecell";
-
-		public PreferencesSubControllerSource (PreferenceModel[] items)
-		{
-			this.items = items;
-		}
 
 		public override int RowsInSection (UITableView tableview, int section)
 		{
-			return items.Length;
+			return AppDelegate.SubCategories.Categories.Count;
 		}
 
 		private void setCell(UITableViewCell cell, NSIndexPath indexPath)
 		{
-			if (items[indexPath.Row].Selected) {
+			if (AppDelegate.SubCategories.Categories[indexPath.Row].Checked) {
 				cell.AccessoryView = new UIImageView (new RectangleF (0, 0, 35, cell.Bounds.Height - 1)) 
 					{ Image = UIImage.FromFile ("./Assets/checkred.png"), ContentMode = UIViewContentMode.Center };
 
@@ -31,9 +27,10 @@ namespace SportNet
 				cell.TextLabel.TextColor = UIColor.FromRGB (255, 0, 0);
 				cell.ContentView.BackgroundColor = UIColor.FromRGB (242, 242, 242);
 				cell.TextLabel.BackgroundColor = UIColor.FromRGB (242, 242, 242);
+				cell.BackgroundColor = UIColor.FromRGB (242, 242, 242);
 			} 
 			else {
-				if (items [indexPath.Row].HasChild) {
+				if (AppDelegate.SubCategories.Categories[indexPath.Row].HasChildren) {
 					cell.AccessoryView = new UIImageView (new RectangleF (0, 0, 35, cell.Bounds.Height - 1))
 						{ Image = UIImage.FromFile ("./Assets/disclosure.png"), ContentMode = UIViewContentMode.Center };
 				} 
@@ -46,6 +43,7 @@ namespace SportNet
 				cell.ContentView.BackgroundColor = UIColor.FromRGB (51, 51, 51);
 				cell.TextLabel.BackgroundColor = UIColor.FromRGB (51, 51, 51);
 				cell.AccessoryView.BackgroundColor = UIColor.FromRGB (51, 51, 51);
+				cell.BackgroundColor = UIColor.FromRGB (51, 51, 51);
 			}
 		}
 
@@ -56,16 +54,11 @@ namespace SportNet
 				cell = new UITableViewCell (UITableViewCellStyle.Default, cellId);
 			}
 
-			cell.TextLabel.Text = items [indexPath.Row].Title;
+			cell.TextLabel.Text = AppDelegate.SubCategories.Categories [indexPath.Row].Name;
 			cell.SelectionStyle = UITableViewCellSelectionStyle.None;
 			cell.TextLabel.Font = UIFont.FromName ("Helvetica-Bold", 14f);
 
 			setCell (cell, indexPath);
-
-			if (items [indexPath.Row].Selected) {
-				// i think this doesnt call RowSelected so we're cool
-				tableView.SelectRow (indexPath, false, UITableViewScrollPosition.None);	
-			}
 
 			return cell;
 		}
@@ -74,35 +67,65 @@ namespace SportNet
 		{
 			var cell = tableView.CellAt (indexPath);
 
-			// change the selection in the model
 			if (indexPath.Row != 0) {
-				items [indexPath.Row].Selected = items [indexPath.Row].Selected ? false : true;
-				setCell (cell, indexPath);
+				if (AppDelegate.SubCategories.Categories [indexPath.Row].HasChildren) {
+					UIStoryboard board = UIStoryboard.FromName ("MainStoryboard", null);
+					var prefs = (PreferencesSubController)board.InstantiateViewController ("preferencessub");
+					prefs.CategoryId = AppDelegate.SubCategories.Categories [indexPath.Row].Id;
+					prefs.ParentChecked = AppDelegate.SubCategories.Categories [indexPath.Row].Checked;
+					prefs.Title = AppDelegate.SubCategories.Categories [indexPath.Row].Name;
+					((UINavigationController)UIApplication.SharedApplication.KeyWindow.RootViewController).PushViewController (prefs, true);
+				} 
+				else {
+					AppDelegate.SubCategories.Categories [indexPath.Row].Checked = !AppDelegate.SubCategories.Categories [indexPath.Row].Checked;
+					setCell (cell, indexPath);
+					var request = new RestRequest ();
+					request.RequestFailed += (object sender, EventArgs e) => {
+						AppDelegate.SubCategories.Categories [indexPath.Row].Checked = !AppDelegate.SubCategories.Categories [indexPath.Row].Checked;
+						setCell (cell, indexPath);
+					};
+					request.Send (RequestConfig.AddContent, "POST", AppDelegate.SubCategories.Categories [indexPath.Row]);
+				}
 			} 
 			else {
-				// select all
-				for (int i = 0; i < items.Length; i++) {
-					items [i].Selected = true;
-				}
-				tableView.ReloadData ();
-			}
-		}
+				AddContentItem model = AppDelegate.MainCategories.Categories.Find (i => i.Id == AppDelegate.SubCategories.ParentCategory.Id);
+				if (model == null) {
+					var request2 = new RestRequest ();
+					request2.RequestFinished += (object sender, RequestEndedArgs e) => {
+						InvokeOnMainThread(delegate() {
+							var data = (AddContentModel)JsonConvert.DeserializeObject(e.Result, typeof(AddContentModel));
+							model = data.Categories.Find(i => i.Id == AppDelegate.SubCategories.ParentCategory.Id);
+							model.Checked = !model.Checked;
+							AppDelegate.SubCategories.Categories [0].Checked = !AppDelegate.SubCategories.Categories [0].Checked;
+							setCell (cell, indexPath);
 
-		public override void RowDeselected (UITableView tableView, NSIndexPath indexPath)
-		{
-			var cell = tableView.CellAt (indexPath);
-			
-			// change the selection in the model
-			if (indexPath.Row != 0) {
-				items [indexPath.Row].Selected = items [indexPath.Row].Selected ? false : true;
-				setCell (cell, indexPath);
-			} 
-			else {
-				// select all
-				for (int i = 0; i < items.Length; i++) {
-					items [i].Selected = false;
+							var request = new RestRequest ();
+							request.RequestFailed += (object snder, EventArgs ev) => {
+								InvokeOnMainThread(delegate() {
+									model.Checked = !model.Checked;
+									AppDelegate.SubCategories.Categories [0].Checked = !AppDelegate.SubCategories.Categories [0].Checked;
+									setCell (cell, indexPath);
+								});
+							};
+							request.Send (RequestConfig.AddContent, "POST", model);
+						});
+					};
+					request2.Send (string.Format (RequestConfig.SubCategories, AppDelegate.SubCategories.ParentCategory.fkParent), "GET");
 				}
-				tableView.ReloadData ();
+				else {
+					model.Checked = !model.Checked;
+					AppDelegate.SubCategories.Categories [0].Checked = !AppDelegate.SubCategories.Categories [0].Checked;
+					setCell (cell, indexPath);
+					var request = new RestRequest ();
+					request.RequestFailed += (object snder, EventArgs ev) => {
+						InvokeOnMainThread(delegate() {
+							model.Checked = !model.Checked;
+							AppDelegate.SubCategories.Categories [0].Checked = !AppDelegate.SubCategories.Categories [0].Checked;
+							setCell (cell, indexPath);
+						});
+					};
+					request.Send (RequestConfig.AddContent, "POST", model);
+				}
 			}
 		}
 	}

@@ -4,13 +4,17 @@ using System;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using System.Drawing;
+using SportNet.Web.Models;
 
 
 namespace SportNet
 {
 	public partial class PictureBigCollectionController : UICollectionViewController
 	{
-		public string[] ImageSources { get; set; }
+		private float offset;
+
+		public GalleryArticleModel Items { get; set; }
+		public int StartingItem { get; set; }
 
 		public PictureBigCollectionController (IntPtr handle) : base (handle)
 		{
@@ -24,28 +28,45 @@ namespace SportNet
 		{
 			base.ViewWillAppear (animated);
 			CollectionView.RegisterClassForCell (typeof(PictureBigCollectionCell), PictureBigCollectionCell.CellId);
-			this.CollectionView.BackgroundColor = UIColor.FromRGB (26, 26, 26);
-			this.CollectionView.AllowsMultipleSelection = false;
+			CollectionView.BackgroundColor = UIColor.FromRGB (26, 26, 26);
+			CollectionView.AllowsMultipleSelection = false;
+			CollectionView.ContentOffset = new PointF (StartingItem * 320, 0);
+			offset = StartingItem * 320;
 
 			var button = new UIBarButtonItem ("Back", UIBarButtonItemStyle.Plain, null);
 			var custom = new UIButton (new RectangleF (0, 0, 26, 15));
 			custom.SetBackgroundImage(UIImage.FromFile("./Assets/back.png"), UIControlState.Normal);
 			custom.TouchUpInside += (sender, e) => NavigationController.PopViewControllerAnimated (true);
 			button.CustomView = custom;
-
 			this.NavigationItem.LeftBarButtonItem = button;
+		}
+
+		public override void ViewDidLoad ()
+		{
+			base.ViewDidLoad ();
+			CollectionView.Scrolled += (object sender, EventArgs e) => {
+				if(CollectionView.ContentOffset.X >= offset + 320) {
+					this.Title = string.Format("{0}/{1}", Math.Round(CollectionView.ContentOffset.X / 320) + 1, Items.Images.Count);
+					offset = CollectionView.ContentOffset.X;
+				}
+				if(CollectionView.ContentOffset.X <= offset + 320) {
+					this.Title = string.Format("{0}/{1}", Math.Round(CollectionView.ContentOffset.X / 320) + 1, Items.Images.Count);
+					offset = CollectionView.ContentOffset.X;
+				}
+			};
 		}
 
 		public override UICollectionViewCell GetCell (UICollectionView collectionView, NSIndexPath indexPath)
 		{
 			var cell = (PictureBigCollectionCell)collectionView.DequeueReusableCell (PictureBigCollectionCell.CellId, indexPath);
-			cell.Image = UIImage.FromFile ("./Assets/article-pic.jpg");
+			cell.resetScale ();
+			AppDelegate.MakeImageFromURL (cell.Image, Items.Images [indexPath.Row]);
 			return cell;
 		}
 
 		public override int GetItemsCount (UICollectionView collectionView, int section)
 		{
-			return ImageSources.Length;
+			return Items.Images.Count;
 		}
 	}
 }

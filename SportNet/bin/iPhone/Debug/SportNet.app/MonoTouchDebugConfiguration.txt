@@ -1,0 +1,3 @@
+IP: 10.10.10.49
+USB Debugging: 1
+Port: 10000

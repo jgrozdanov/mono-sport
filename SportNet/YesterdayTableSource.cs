@@ -27,8 +27,8 @@ namespace SportNet
 			//			cell.ContentView.BackgroundColor = UIColor.FromRGB (26, 26, 26);
 			//			cell.TextLabel.BackgroundColor = UIColor.FromRGB (26, 26, 26);
 			//			cell.AccessoryView.BackgroundColor = UIColor.FromRGB (26, 26, 26);
-			cell.SetLiveScoreCell (items [indexPath.Row].TeamOne, items [indexPath.Row].TeamTwo, items [indexPath.Row].Result, 
-			                       items [indexPath.Row].LoaderSource,items [indexPath.Row].TimeIndicator,items [indexPath.Row].StartTime);
+//			cell.SetLiveScoreCell (items [indexPath.Row].TeamOne, items [indexPath.Row].TeamTwo, items [indexPath.Row].Result, 
+//			                       items [indexPath.Row].LoaderSource,items [indexPath.Row].TimeIndicator,items [indexPath.Row].StartTime);
 		}
 
 		public virtual UITableViewCellSeparatorStyle SeparatorStyle { get; set; }
@@ -41,9 +41,6 @@ namespace SportNet
 			};
 			setCell (cell, indexPath);
 			return cell;
-
-
-
 		}
 	}
 }

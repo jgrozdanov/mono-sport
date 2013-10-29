@@ -23,7 +23,8 @@
     <MtouchLink>None</MtouchLink>
     <ConsolePause>false</ConsolePause>
     <MtouchDebug>true</MtouchDebug>
-    <MtouchI18n />
+    <MtouchI18n>
+    </MtouchI18n>
     <MtouchArch>ARMv7</MtouchArch>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
@@ -45,6 +46,12 @@
     <MtouchDebug>true</MtouchDebug>
     <ConsolePause>false</ConsolePause>
     <CodesignKey>iPhone Developer</CodesignKey>
+    <BuildIpa>true</BuildIpa>
+    <IpaPackageName>
+    </IpaPackageName>
+    <MtouchI18n>
+    </MtouchI18n>
+    <MtouchArch>ARMv7</MtouchArch>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>full</DebugType>
@@ -54,6 +61,7 @@
     <WarningLevel>4</WarningLevel>
     <CodesignKey>iPhone Developer</CodesignKey>
     <ConsolePause>false</ConsolePause>
+    <BuildIpa>true</BuildIpa>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
     <DebugType>full</DebugType>
@@ -83,6 +91,18 @@
     <Reference Include="monotouch" />
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\..\Downloads\json.net-4.5.11\lib\ios\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="SportNet.Web.Models">
+      <HintPath>..\..\Sport.Net\SportNew.DTOs\bin\Debug\SportNet.Web.Models.dll</HintPath>
+    </Reference>
+    <Reference Include="SDWebImage">
+      <HintPath>..\..\..\Downloads\sdwebimage-3.4\lib\ios\SDWebImage.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoTouch.FacebookConnect">
+      <HintPath>..\..\..\Desktop\MonoTouch.FacebookConnect.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Plus">
+      <HintPath>..\..\..\Desktop\Google.Plus.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -222,6 +242,9 @@
       <DependentUpon>HomeController.cs</DependentUpon>
     </Compile>
     <Compile Include="RestRequest.cs" />
+    <Compile Include="NewsCellNoPic.cs" />
+    <Compile Include="RequestConfig.cs" />
+    <Compile Include="SwitchCategorySource.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />
@@ -281,16 +304,33 @@
     <BundleResource Include="Assets\football-icon%402x.png" />
     <BundleResource Include="Assets\yesterday%402x.png" />
     <BundleResource Include="Assets\today%402x.png" />
-    <BundleResource Include="Assets\indicator%402x.png" />
     <BundleResource Include="Assets\photo%402x.png" />
     <BundleResource Include="Assets\photoSmall.png" />
     <BundleResource Include="Assets\cell%402x.png" />
     <BundleResource Include="Resources\Default-568h%402x.png" />
     <BundleResource Include="Assets\dropdown%402x.png" />
+    <BundleResource Include="Resources\Icon%402x.png" />
+    <BundleResource Include="Resources\Icon.png" />
+    <BundleResource Include="Resources\Icon-Small%402x.png" />
+    <BundleResource Include="Resources\Icon-72.png" />
+    <BundleResource Include="Resources\Icon-Small-50.png" />
+    <BundleResource Include="Assets\loader1%402x.png" />
+    <BundleResource Include="Assets\loader2%402x.png" />
+    <BundleResource Include="Assets\loader3%402x.png" />
+    <BundleResource Include="Assets\loader4%402x.png" />
+    <BundleResource Include="Assets\loader5%402x.png" />
+    <BundleResource Include="Assets\loader6%402x.png" />
+    <BundleResource Include="Assets\loader7%402x.png" />
+    <BundleResource Include="Assets\loader8%402x.png" />
+    <BundleResource Include="Assets\imgholder%402x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="Assets\" />
     <Folder Include="Lib\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ITunesArtwork Include="iTunesArtwork" />
+    <ITunesArtwork Include="iTunesArtwork%402x" />
   </ItemGroup>
 </Project>

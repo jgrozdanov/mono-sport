@@ -50,13 +50,13 @@ namespace SportNet
 			ContentView.Add (photo);
 			ContentView.Add (number);
 		}
-		public void SetPictureCell(string heading, string category, string imageSource, string photo, int picturesCount)
+		public void SetPictureCell(string heading, string category, string imageSource, int picturesCount)
 		{
 			this.heading.Text = heading;
 			this.category.Text = category;
-			this.image.Image = UIImage.FromFile (imageSource);
+			AppDelegate.MakeImageFromURL (this.image, imageSource);
 			this.number.Text = string.Format("{0}", picturesCount);
-			this.photo.Image = UIImage.FromFile (photo);
+			this.photo.Image = UIImage.FromFile ("./Assets/photoSmall.png");
 		}
 
 		public override void LayoutSubviews ()

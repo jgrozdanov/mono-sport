@@ -19,6 +19,9 @@ namespace SportNet
 		MonoTouch.UIKit.UIButton Login { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UIButton MaybeLater { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UIButton Register { get; set; }
 		
 		void ReleaseDesignerOutlets ()
@@ -28,14 +31,19 @@ namespace SportNet
 				BackgroundView = null;
 			}
 
+			if (Login != null) {
+				Login.Dispose ();
+				Login = null;
+			}
+
 			if (Register != null) {
 				Register.Dispose ();
 				Register = null;
 			}
 
-			if (Login != null) {
-				Login.Dispose ();
-				Login = null;
+			if (MaybeLater != null) {
+				MaybeLater.Dispose ();
+				MaybeLater = null;
 			}
 		}
 	}

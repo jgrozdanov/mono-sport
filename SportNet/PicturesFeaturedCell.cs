@@ -56,12 +56,12 @@ namespace SportNet
 			ContentView.Add (number);
 
 		}
-		public void SetPicturesFeaturedCell(string heading, string category, string imageSource, string photo, int number)
+		public void SetPicturesFeaturedCell(string heading, string category, string imageSource, int number)
 		{
 			this.heading.Text = heading;
 			this.category.Text = category;
-			this.image.Image = UIImage.FromFile (imageSource);
-			this.photo.Image = UIImage.FromFile (photo);
+			AppDelegate.MakeImageFromURL (this.image, imageSource);
+			this.photo.Image = UIImage.FromFile ("./Assets/photo.png");
 			this.number.Text = string.Format("{0}", number);
 		}
 

@@ -47,7 +47,7 @@ namespace SportNet
 		{
 			this.heading.Text = heading;
 			this.category.Text = category;
-			this.image.Image = UIImage.FromFile (imageSource);
+			AppDelegate.MakeImageFromURL (this.image, imageSource);
 		}
 
 		public override void LayoutSubviews ()

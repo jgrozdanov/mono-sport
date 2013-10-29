@@ -1,6 +1,8 @@
 using Newtonsoft.Json;
 using System;
 using System.Net;
+using MonoTouch.Foundation;
+using MonoTouch.UIKit;
 
 namespace SportNet
 {
@@ -9,10 +11,13 @@ namespace SportNet
 		public string Result { get; set; }
 	}
 
-	public class RestRequest
+	public class RestRequest : NSObject
 	{
 		public delegate void RequestFinish(object sender, RequestEndedArgs e);
 		public event RequestFinish RequestFinished;
+
+		public delegate void RequestFail (object sender, EventArgs e);
+		public event RequestFail RequestFailed;
 
 		public RestRequest ()
 		{
@@ -37,15 +42,35 @@ namespace SportNet
 
 		void uploadStringCompleted (object sender, UploadStringCompletedEventArgs e)
 		{
-			if (RequestFinished != null) {
-				RequestFinished (this, new RequestEndedArgs { Result = e.Result });
+			try {
+				if (RequestFinished != null) {
+					RequestFinished (this, new RequestEndedArgs { Result = e.Result });
+				}
+			}
+			catch(Exception ex) {
+				if (RequestFailed != null) {
+					RequestFailed (this, null);
+				}
+				InvokeOnMainThread (delegate {
+					new UIAlertView ("Sorry", ex.Message, null, "OK", null).Show();
+				});
 			}
 		}
 
 		void downloadStringCompleted (object sender, DownloadStringCompletedEventArgs e)
 		{
-			if (RequestFinished != null) {
-				RequestFinished (this, new RequestEndedArgs { Result = e.Result });
+			try {
+				if (RequestFinished != null) {
+					RequestFinished (this, new RequestEndedArgs { Result = e.Result });
+				}
+			}
+			catch(Exception ex) {
+				if (RequestFailed != null) {
+					RequestFailed (this, null);
+				}
+				InvokeOnMainThread (delegate {
+					new UIAlertView ("Sorry", ex.Message, null, "OK", null).Show();
+				});
 			}
 		}
 	}

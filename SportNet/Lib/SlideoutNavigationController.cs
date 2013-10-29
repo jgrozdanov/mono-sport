@@ -2,6 +2,7 @@ using System;
 using System.Drawing;
 using MonoTouch.UIKit;
 using MonoTouch.Foundation;
+using SportNet;
 
 namespace MonoTouch.SlideoutNavigation
 {
@@ -581,10 +582,14 @@ namespace MonoTouch.SlideoutNavigation
 			};
 
 			// custom styling
-			//_internalTopNavigation.NavigationBar.SetBackgroundImage (UIImage.FromFile ("./Assets/navbar.png"), 
-			//                                                         MonoTouch.UIKit.UIBarMetrics.Default);
-			_internalTopNavigation.NavigationBar.BarTintColor = UIColor.Black;
 
+			if (((AppDelegate)UIApplication.SharedApplication.Delegate).IsSeven) {
+				_internalTopNavigation.NavigationBar.BarTintColor = UIColor.Black;
+			} 
+			else {
+				_internalTopNavigation.NavigationBar.SetBackgroundImage (UIImage.FromFile ("./Assets/navbar.png"), 
+				                                                         MonoTouch.UIKit.UIBarMetrics.Default);
+			}
 
 			_internalTopView.AddChildViewController (_internalTopNavigation);
 			_internalTopView.View.AddSubview (_internalTopNavigation.View);

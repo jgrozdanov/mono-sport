@@ -16,13 +16,13 @@ namespace SportNet
 		MonoTouch.UIKit.UITableView Categories { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UINavigationBar navBar { get; set; }
-
-		[Outlet]
-		MonoTouch.UIKit.UIImageView SportImage { get; set; }
+		MonoTouch.UIKit.UILabel DateToday { get; set; }
 
 		[Outlet]
 		MonoTouch.UIKit.UIImageView SportImageToday { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel SportToday { get; set; }
 
 		[Outlet]
 		MonoTouch.UIKit.UIButton SwitchCategory { get; set; }
@@ -31,22 +31,7 @@ namespace SportNet
 		MonoTouch.UIKit.UIScrollView SwitchTo { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIBarButtonItem Today { get; set; }
-
-		[Outlet]
 		MonoTouch.UIKit.UITableView TodayTable { get; set; }
-
-		[Outlet]
-		MonoTouch.UIKit.UIBarButtonItem Yesterday { get; set; }
-
-		[Outlet]
-		MonoTouch.UIKit.UITableView YesterdayCategories { get; set; }
-
-		[Outlet]
-		MonoTouch.UIKit.UIButton YesterdaySwitchCategory { get; set; }
-
-		[Outlet]
-		MonoTouch.UIKit.UITableView YesterdayTable { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
@@ -55,19 +40,19 @@ namespace SportNet
 				Categories = null;
 			}
 
-			if (navBar != null) {
-				navBar.Dispose ();
-				navBar = null;
-			}
-
-			if (SportImage != null) {
-				SportImage.Dispose ();
-				SportImage = null;
-			}
-
 			if (SportImageToday != null) {
 				SportImageToday.Dispose ();
 				SportImageToday = null;
+			}
+
+			if (SportToday != null) {
+				SportToday.Dispose ();
+				SportToday = null;
+			}
+
+			if (DateToday != null) {
+				DateToday.Dispose ();
+				DateToday = null;
 			}
 
 			if (SwitchCategory != null) {
@@ -80,34 +65,9 @@ namespace SportNet
 				SwitchTo = null;
 			}
 
-			if (Today != null) {
-				Today.Dispose ();
-				Today = null;
-			}
-
 			if (TodayTable != null) {
 				TodayTable.Dispose ();
 				TodayTable = null;
-			}
-
-			if (Yesterday != null) {
-				Yesterday.Dispose ();
-				Yesterday = null;
-			}
-
-			if (YesterdayTable != null) {
-				YesterdayTable.Dispose ();
-				YesterdayTable = null;
-			}
-
-			if (YesterdayCategories != null) {
-				YesterdayCategories.Dispose ();
-				YesterdayCategories = null;
-			}
-
-			if (YesterdaySwitchCategory != null) {
-				YesterdaySwitchCategory.Dispose ();
-				YesterdaySwitchCategory = null;
 			}
 		}
 	}

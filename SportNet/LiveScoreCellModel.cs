@@ -12,8 +12,6 @@ namespace SportNet
 		public string StartTime { get; set; }
 		public string Separator { get; set; }
 
-
-
 		public LiveScoreCellModel ()
 		{
 		}

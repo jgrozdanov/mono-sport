@@ -2,9 +2,12 @@
 
 using System;
 using System.Drawing;
+using System.Collections.Generic;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
-
+using SportNet.Web.Models;
+using SportNet.Web.Models.LiveScore;
+using Newtonsoft.Json;
 
 namespace SportNet
 {
@@ -13,47 +16,44 @@ namespace SportNet
 		public LiveScoreViewController (IntPtr handle) : base (handle)
 		{
 		}
-
+		
 		public override void ViewWillAppear (bool animated)
 		{
-			this.SportImage.Image =  UIImage.FromFile("./Assets/football-icon.png");
+			this.DateToday.Text = DateTime.Now.ToLongDateString();
+
 			this.SportImageToday.Image = UIImage.FromFile ("./Assets/football-icon.png");
 			this.SwitchTo.Frame = new RectangleF(0, 44, 640, 504);
 			this.SwitchTo.ContentSize=new SizeF (640, 504);
 			this.SwitchTo.ScrollEnabled = false;
-			this.SwitchTo.ContentOffset = (new PointF (320, 0));
-			var events = new LiveScoreCellModel[] {
-				new LiveScoreCellModel() { TeamOne = "Botev Pd", TeamTwo = "Loko Pd", Result = "1:1", TimeIndicator = -1, StartTime = "19;00" },
-				new LiveScoreCellModel() { TeamOne = "Botev Pd", TeamTwo = "Loko Pd", Result = "2:2", TimeIndicator = 68, StartTime = "19;00" },
-				new LiveScoreCellModel() { TeamOne = "Botev Pd", TeamTwo = "Loko Pd", Result = "3:3", TimeIndicator = 68, StartTime = "19;00" },
-				new LiveScoreCellModel() { TeamOne = "Botev Pd", TeamTwo = "Loko Pd", Result = "4:4", TimeIndicator = 0, StartTime = "19;00" },
-				new LiveScoreCellModel() { TeamOne = "Botev Pd", TeamTwo = "Loko Pd", Result = "5:5", TimeIndicator = -1, StartTime = "19;00" },
-				new LiveScoreCellModel() { TeamOne = "Litex L", TeamTwo = "Real Madrid", Result = "6:6", TimeIndicator = 38, StartTime = "19;00" },
-				new LiveScoreCellModel() { TeamOne = "Levski Sf", TeamTwo = "CSKA Sf", Result = "7:7", TimeIndicator = 18, StartTime = "19;00" },
-				new LiveScoreCellModel() { TeamOne = "West Ham United", TeamTwo = "West Ham United", Result = "8:8", TimeIndicator = -1, StartTime = "19;00" },
-				new LiveScoreCellModel() { TeamOne = "Botev Pd", TeamTwo = "Loko Pd", Result = "9:9", TimeIndicator = -1, StartTime = "19;00" },
-				new LiveScoreCellModel() { TeamOne = "Botev Pd", TeamTwo = "Loko Pd", Result = "10:10", TimeIndicator = 68, StartTime = "19;00" },
-				new LiveScoreCellModel() { TeamOne = "Botev Pd", TeamTwo = "Loko Pd", Result = "11:11", TimeIndicator = 0, StartTime = "19;00" },
-				new LiveScoreCellModel() { TeamOne = "Botev Pd", TeamTwo = "Loko Pd", Result = "12:12", TimeIndicator = 68, StartTime = "19;00" },
-				new LiveScoreCellModel() { TeamOne = "Botev Pd", TeamTwo = "Loko Pd", Result = "13:13", TimeIndicator = -1, StartTime = "19;00" },
-				new LiveScoreCellModel() { TeamOne = "Litex L", TeamTwo = "Real Madrid", Result = "14:14", TimeIndicator = 38, StartTime = "19;00" },
-				new LiveScoreCellModel() { TeamOne = "Levski Sf", TeamTwo = "CSKA Sf", Result = "15:15", TimeIndicator = 18, StartTime = "19;00" },
-				new LiveScoreCellModel() { TeamOne = "West Ham United", TeamTwo = "West Ham United", Result = "16:16", TimeIndicator = 0, StartTime = "19;00" }
 
+			var request = new RestRequest ();
+			request.RequestFinished += (object sender, RequestEndedArgs e) => {
+				InvokeOnMainThread(delegate {
+					var data = (LiveScoreViewModel)JsonConvert.DeserializeObject(e.Result, typeof(LiveScoreViewModel));
+					this.TodayTable.Source = new TodayTableSource(data);
+					this.TodayTable.ReloadData();
+				});
 			};
+			request.Send (string.Format (RequestConfig.LiveScore, 0, 0), "GET");
+
 			this.TodayTable.ShowsVerticalScrollIndicator = false;
-			this.TodayTable.Source = new TodayTableSource (events);
 			this.TodayTable.BackgroundColor=  UIColor.FromRGB (26, 26, 26);
-			this.YesterdayTable.Source = new YesterdayTableSource (events);
-			this.YesterdayTable.BackgroundColor=  UIColor.FromRGB (26, 26, 26);
-			this.YesterdayTable.ShowsVerticalScrollIndicator = false;
+
 			this.SwitchCategory.SetBackgroundImage (UIImage.FromFile ("./Assets/dropdown.png"), UIControlState.Normal);
-			this.YesterdaySwitchCategory.SetBackgroundImage (UIImage.FromFile ("./Assets/dropdown.png"), UIControlState.Normal);
-			this.NavigationController.TopViewController.NavigationItem.LeftBarButtonItem = new UIBarButtonItem("Yesterday", UIBarButtonItemStyle.Plain, 
-			                                                                                                   (s, e) => this.SwitchTo.SetContentOffset(new PointF(0, 0), true));
-			this.NavigationController.TopViewController.NavigationItem.RightBarButtonItem = new UIBarButtonItem("Today", UIBarButtonItemStyle.Plain, 
-			                                                                                                    (s, e) => this.SwitchTo.SetContentOffset(new PointF(320, 0), true));
-			this.AutomaticallyAdjustsScrollViewInsets = false;
+
+			request = new RestRequest ();
+			request.RequestFinished += (object sender, RequestEndedArgs e) => {
+				InvokeOnMainThread(delegate {
+					var data = (List<LiveScoreSportModel>)JsonConvert.DeserializeObject(e.Result, typeof(List<LiveScoreSportModel>));
+					this.Categories.Source = new SwitchCategorySource(data, TodayTable);
+					this.Categories.ReloadData();
+				});
+			};
+			request.Send (RequestConfig.LiveScoreSports, "GET");
+
+			if(((AppDelegate)UIApplication.SharedApplication.Delegate).IsSeven) {
+				this.AutomaticallyAdjustsScrollViewInsets = false;	
+			}
 		}
 
 		public override void ViewDidLoad ()
@@ -73,22 +73,6 @@ namespace SportNet
 					UIView.Animate(0.25, 0, UIViewAnimationOptions.CurveEaseInOut,
 					               () => this.Categories.Alpha = 0,
 					               () => this.Categories.Hidden = true);
-				}
-			};
-
-			this.YesterdaySwitchCategory.TouchUpInside += (object sender, EventArgs e) => {
-				if(this.YesterdayCategories.Hidden) {
-					this.YesterdayCategories.Alpha = 0;
-					this.YesterdayCategories.Hidden = false;
-					UIView.Animate(0.25, 0, UIViewAnimationOptions.CurveEaseInOut,
-					               () => this.YesterdayCategories.Alpha = 1,
-					               () => this.YesterdayCategories.Hidden = false);
-				}
-				else {
-					this.YesterdayCategories.Alpha = 1;
-					UIView.Animate(0.25, 0, UIViewAnimationOptions.CurveEaseInOut,
-					               () => this.YesterdayCategories.Alpha = 0,
-					               () => this.YesterdayCategories.Hidden = true);
 				}
 			};
 		}

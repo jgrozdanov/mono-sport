@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using MonoTouch.UIKit;
 using MonoTouch.Foundation;
 using System.Drawing;
+using SportNet.Web.Models;
 
 namespace SportNet
 {
@@ -9,17 +11,35 @@ namespace SportNet
 	{
 		private class TouchView : UIView 
 		{
-			public NewsCellModel Data { get; set; }
+			public int Index { get; set; }
+			public int SmallId { get; set; } 
+			public string Category { get; set; }
 
 			public override void TouchesEnded (NSSet touches, UIEvent evt)
 			{
 				base.TouchesEnded (touches, evt);
 
-				UIStoryboard board = UIStoryboard.FromName ("MainStoryboard", null);
-				NewsDetailController article = (NewsDetailController)board.InstantiateViewController ("newsdetail");
-				article.Data = Data;
+//				UIStoryboard board = UIStoryboard.FromName ("MainStoryboard", null);
+//				NewsDetailController article = (NewsDetailController)board.InstantiateViewController ("newsdetail");
+
+				var webViewController = new UIViewController ();
+				var button = new UIBarButtonItem ("Back", UIBarButtonItemStyle.Plain, null);
+
+				var custom = new UIButton (new RectangleF (0, 0, 26, 15));
+				custom.SetBackgroundImage(UIImage.FromFile("./Assets/back.png"), UIControlState.Normal);
+				custom.TouchUpInside += (sender, e) => webViewController.NavigationController.PopViewControllerAnimated (true);
+				button.CustomView = custom;
+				webViewController.NavigationItem.LeftBarButtonItem = button;
+
+				var webView = new UIWebView (Window.Bounds);
+				webView.Opaque = false;
+				webView.BackgroundColor = UIColor.Black;
+				webView.LoadRequest (new NSUrlRequest (new NSUrl (string.Format(RequestConfig.Article, SmallId))));
+				webViewController.View = webView;
+				webViewController.Title = Category;
+
 				((MainTabController)UIApplication.SharedApplication.Delegate.Window.RootViewController).
-					News.InternalTopNavigation.PushViewController (article,true);
+					News.InternalTopNavigation.PushViewController (webViewController,true);
 			}
 		} 
 
@@ -60,11 +80,13 @@ namespace SportNet
 				Article.AddSubview(HeadingView);
 			}
 
-			public void SetFeaturedArticle(string heading, string category, string image)
+			public void SetFeaturedArticle(NewsModelItem item)
 			{
-				this.Heading.Text = heading;
-				this.Category.Text = category;
-				this.Image.Image = UIImage.FromFile (image);
+				this.Heading.Text = item.Title;
+				this.Category.Text = item.Category;
+				AppDelegate.MakeImageFromURL (this.Image, item.Img);
+				Article.SmallId = item.SmallId;
+				Article.Category = item.Category;
 			}
 		}
 
@@ -89,11 +111,12 @@ namespace SportNet
 			ContentView.AddSubview (pageControl);
 		}
 
-		public void SetFeaturedCell(NewsCellModel[] items)
+		public void SetFeaturedCell(List<NewsModelItem> items)
 		{
-			for (int i = 0; i < 4; i++) {
-				articles [i].SetFeaturedArticle (items[i].Heading, items[i].Category, items[i].ImageSource);
-				articles [i].Article.Data = items [i];
+			int i = 0;
+			foreach(var item in items) {
+				articles [i].SetFeaturedArticle (item);
+				i++;
 			}
 		}
 
@@ -125,7 +148,7 @@ namespace SportNet
 				articles[i].Image.Frame = new RectangleF (0, 0, ContentView.Bounds.Width - 36, ContentView.Bounds.Height - 20);
 				articles[i].HeadingView.Frame = new RectangleF (0, 180, ContentView.Bounds.Width - 36, 80);
 				articles[i].Category.Frame = new RectangleF(18, 10, ContentView.Bounds.Width - 36, 12);
-				articles[i].Heading.Frame = new RectangleF(18, 23, ContentView.Bounds.Width - 36, 16);
+				articles[i].Heading.Frame = new RectangleF(18, 23, ContentView.Bounds.Width - 56, 16);
 				articles[i].Heading.SizeToFit ();
 				positionLeft += (ContentView.Bounds.Width - 36);
 			}

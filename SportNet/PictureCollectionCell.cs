@@ -10,14 +10,14 @@ namespace SportNet
 	{
 		public static NSString CellId = (NSString)"picturesCollectionCell";
 
-		private UIImageView image;
+		public UIImageView Image { get; set; }
 
 		[Export ("initWithFrame:")]
 		public PictureCollectionCell (RectangleF frame) : base(frame)
 		{
-			this.image = new UIImageView (new RectangleF (0, 0, this.ContentView.Bounds.Width, this.ContentView.Bounds.Height));
-			this.image.ContentMode = UIViewContentMode.ScaleAspectFill;
-			this.ContentView.AddSubview (image);
+			this.Image = new UIImageView (new RectangleF (0, 0, this.ContentView.Bounds.Width, this.ContentView.Bounds.Height));
+			this.Image.ContentMode = UIViewContentMode.ScaleToFill;
+			this.ContentView.AddSubview (Image);
 
 			BackgroundView = new UIView{BackgroundColor = UIColor.Clear};
 
@@ -29,13 +29,6 @@ namespace SportNet
 //
 //			image.Center = ContentView.Center;
 //			image.Transform = CGAffineTransform.MakeScale (0.8f, 0.8f);
-		}
-
-		public UIImage Image 
-		{
-			set {
-				this.image.Image = value;
-			}
 		}
 	}
 }

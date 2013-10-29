@@ -19,7 +19,16 @@ namespace SportNet
 		MonoTouch.UIKit.UIImageView Image { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UIButton Login { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIButton Name { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UIButton Settings { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIButton SignUp { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
@@ -33,9 +42,24 @@ namespace SportNet
 				Image = null;
 			}
 
+			if (Name != null) {
+				Name.Dispose ();
+				Name = null;
+			}
+
 			if (Settings != null) {
 				Settings.Dispose ();
 				Settings = null;
+			}
+
+			if (Login != null) {
+				Login.Dispose ();
+				Login = null;
+			}
+
+			if (SignUp != null) {
+				SignUp.Dispose ();
+				SignUp = null;
 			}
 		}
 	}

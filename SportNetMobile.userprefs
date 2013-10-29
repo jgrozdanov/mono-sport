@@ -1,18 +1,42 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPhone.7.0" />
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="SportNet/NewsController.cs">
+    <Files>
+      <File FileName="SportNet/NewsController.cs" Line="30" Column="4" />
+      <File FileName="SportNet/NewsControllerSource.cs" Line="85" Column="4" />
+      <File FileName="SportNet/MainTabController.cs" Line="69" Column="32" />
+      <File FileName="SportNet/HomeController.cs" Line="34" Column="3" />
+      <File FileName="SportNet/HomeControllerSource.cs" Line="60" Column="53" />
+      <File FileName="SportNet/RequestConfig.cs" Line="9" Column="27" />
+      <File FileName="SportNet/AppDelegate.cs" Line="52" Column="1" />
+      <File FileName="SportNet/MenuController.cs" Line="16" Column="1" />
+    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="SportNet" expanded="True">
-            <Node name="RestRequest.cs" selected="True" />
+            <Node name="NewsController.cs" selected="True" />
           </Node>
         </State>
+      </Pad>
+      <Pad Id="ClassPad">
+        <State expanded="True" selected="True" />
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/dani/dev/SportNetMobile/SportNet/NewsController.cs" line="68" column="48" />
+      <Breakpoint file="/Users/dani/dev/SportNetMobile/SportNet/RequestConfig.cs" line="9" column="36" />
+      <Breakpoint file="/Users/dani/dev/SportNetMobile/SportNet/AppDelegate.cs" line="49" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.SportNet>
+    <IPhoneTestFlightSettings_27CDebug ApiToken="08a11a45acde264298e5a25ebfb99d75_MTM1NjgyNTIwMTMtMTAtMDcgMDk6MjY6MDkuNDE5Nzk1" TeamToken="efbcedf1451eeacce0892511165d8462_MjgyMzkwMjAxMy0xMC0wNyAwOTozNTo1My45MDQwMzc" ReleaseNotes="the first version on testflight" NotifyTeamMembers="False" ReplaceBinaries="False" UploadDSYMs="False" DistributionLists="" />
+    <IPhoneTestFlightSettings_27CRelease ApiToken="08a11a45acde264298e5a25ebfb99d75_MTM1NjgyNTIwMTMtMTAtMDcgMDk6MjY6MDkuNDE5Nzk1" TeamToken="efbcedf1451eeacce0892511165d8462_MjgyMzkwMjAxMy0xMC0wNyAwOTozNTo1My45MDQwMzc" ReleaseNotes="livescore updates, app should be working now" NotifyTeamMembers="False" ReplaceBinaries="False" DistributionLists="" UploadDSYMs="False" />
+  </MonoDevelop.Ide.ItemProperties.SportNet>
 </Properties>

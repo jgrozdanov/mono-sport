@@ -2,3 +2,9 @@ mscorlib.dll
 System.Core.dll
 System.dll
 System.Xml.dll
+SportNet.Web.Models.dll
+MonoTouch.FacebookConnect.dll
+SDWebImage.dll
+Google.Plus.dll
+Newtonsoft.Json.dll
+System.Runtime.Serialization.dll

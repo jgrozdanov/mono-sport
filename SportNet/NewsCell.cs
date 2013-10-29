@@ -11,7 +11,6 @@ namespace SportNet
 		private UILabel category;
 		private UIImageView image;
 
-
 		public NewsCell (NSString cellId) : base(UITableViewCellStyle.Default, cellId)
 		{
 			SelectionStyle = UITableViewCellSelectionStyle.None;
@@ -32,32 +31,33 @@ namespace SportNet
 			image.ContentMode = UIViewContentMode.ScaleAspectFill;
 			image.ClipsToBounds = true;
 
-
 			ContentView.Add (heading);
 			ContentView.Add (category);
 			ContentView.Add (image);
-
-			
 		}
 
 		public void SetNewsCell(string heading, string category, string image)
 		{
 			this.heading.Text = heading;
 			this.category.Text = category;
-			this.image.Image = UIImage.FromFile (image);
+			AppDelegate.MakeImageFromURL (this.image, image);
+		}
 
+		public void SetNewsCell(string heading, string category, UIImage image)
+		{
+			this.heading.Text = heading;
+			this.category.Text = category;
+			this.image.Image = image;
 		}
 
 		public override void LayoutSubviews ()
 		{
 			base.LayoutSubviews ();
 
-			image.Frame = new RectangleF(18, 0, 100, 100);
-			category.Frame = new RectangleF(128, 10, ContentView.Bounds.Width - 136, 12);
-			heading.Frame = new RectangleF(128, 25, ContentView.Bounds.Width - 145, 16);
-			heading.SizeToFit ();
-			image.Frame = new RectangleF(18, 0, 100, 100);
-
+			this.image.Frame = new RectangleF(18, 0, 100, 100);
+			this.category.Frame = new RectangleF(128, 10, ContentView.Bounds.Width - 136, 12);
+			this.heading.Frame = new RectangleF(128, 25, ContentView.Bounds.Width - 145, 16);
+			this.heading.SizeToFit ();
 		}
 	}
 }

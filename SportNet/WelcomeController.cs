@@ -41,6 +41,10 @@ namespace SportNet
 				SignUpController signUp = (SignUpController)board.InstantiateViewController ("signupcontroller");
 				this.NavigationController.PushViewController(signUp, true);
 			};
+
+			this.MaybeLater.TouchUpInside += (object sender, EventArgs e) => {
+				UIApplication.SharedApplication.KeyWindow.RootViewController = new MainTabController();
+			};
 		}
 	}
 }

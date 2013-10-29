@@ -5,39 +5,94 @@ using System;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using System.Drawing;
+using Newtonsoft.Json;
+using SportNet.Web.Models;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace SportNet
 {
 	public partial class NewsController : UITableViewController
 	{
 		private UIRefreshControl refresh;
+		private UIActivityIndicatorView spinner;
+
+		public int? Category { get; set; }
+
+		public UIActivityIndicatorView Spinner 
+		{
+			get {
+				return spinner;
+			}
+		}
 
 		public NewsController (IntPtr handle) : base (handle)
 		{
 		}
 
+		private void getData()
+		{
+			// load the articles and the menu from the server on a background thread
+			var request = new RestRequest ();
+			request.RequestFinished += (object sender, RequestEndedArgs e) => {
+				InvokeOnMainThread(delegate {
+					var data = (CategoryModel)JsonConvert.DeserializeObject(e.Result, typeof(CategoryModel));
+					var menuController = (MenuController)((MainTabController)UIApplication.SharedApplication.Delegate.Window.RootViewController).News.MenuViewLeft;
+
+					// slice the news list into featured and normal articles
+					var featured = (List<NewsModelItem>)data.News;
+					featured = featured.Where(c => !string.IsNullOrEmpty(c.Img)).Take(4).ToList();
+					foreach(var i in featured) {
+						data.News.Remove(i);
+					}
+
+					// add 'all sports' item to the categories list
+					if(data.Parent.Link == 0) {
+						data.Categories.Insert(0, new CategoriesMenuModelItem { Name = "All Sports", Link = 0 });
+					}
+					else {
+						data.Categories.Insert(0, new CategoriesMenuModelItem { Name = "Back" , Link = data.Parent.Link });
+					}
+
+					TableView.Source = new NewsControllerSource(data.News, featured, data.CategoryId);
+					menuController.TableView.Source = new MenuControllerSource(data.Categories, "news");
+					menuController.TableView.ReloadData();
+					TableView.ReloadData();
+					spinner.StopAnimating();
+				});
+			};
+			if (Category.HasValue) {
+				request.Send (string.Format(RequestConfig.News(), Category, 0), "GET");
+			} 
+			else {
+				request.Send (string.Format(RequestConfig.News(), 0, 0), "GET");
+			}
+
+		}
+
 		public override void ViewWillAppear (bool animated)
 		{
 			base.ViewWillAppear (animated);
+			spinner = new UIActivityIndicatorView (UIActivityIndicatorViewStyle.WhiteLarge);
+			spinner.Center = new PointF (160, 160);
+			spinner.HidesWhenStopped = true;
+			TableView.AddSubview (spinner);
+			spinner.StartAnimating ();
+		}
 
-			var articles = new NewsCellModel[] {
-				new NewsCellModel { Heading = "Button: I haven't lost my enthusiasm", Category = "Formula 1", ImageSource = "./Assets/article-pic.jpg" },
-				new NewsCellModel { Heading = "Transfer news: Luis Suarez rocks Liverpool with news he will submit a transfer request ", Category = "Liverpool", ImageSource = "./Assets/article-pic.jpg" },
-				new NewsCellModel { Heading = "Button: I haven't lost my enthusiasm", Category = "Formula 1", ImageSource = "./Assets/article-pic.jpg" },
-				new NewsCellModel { Heading = "Hulkenberg vows to keep pushing", Category = "Sauber", ImageSource = "./Assets/article-pic.jpg" },
-				new NewsCellModel { Heading = "Button: I haven't lost my enthusiasm", Category = "Formula 1", ImageSource = "./Assets/article-pic.jpg" },
-				new NewsCellModel { Heading = "Cristiano Ronaldo", Category = "Football", ImageSource = "./Assets/article-pic.jpg" }
-			};
-			var featured = new NewsCellModel[] {
-				new NewsCellModel { Heading = "Tiger Woods Will End Weekend Woes with PGA Championship Victory", Category = "Golf", ImageSource = "./Assets/article-pic.jpg" },
-				new NewsCellModel { Heading = "Cristiano Ronaldo", Category = "Football", ImageSource = "./Assets/article-pic.jpg" },
-				new NewsCellModel { Heading = "Button: I haven't lost my enthusiasm", Category = "Formula 1", ImageSource = "./Assets/article-pic.jpg" },
-				new NewsCellModel { Heading = "Transfer news: Lyon doubt Newcastle's Bafetimbi Gomis deal will be completed", Category = "Football", ImageSource = "./Assets/article-pic.jpg" }
-			};
-			TableView.Source = new NewsControllerSource (articles, featured);
+		public override void ViewDidLoad ()
+		{
+			base.ViewDidLoad ();
+
 			refresh = new UIRefreshControl ();
 			TableView.AddSubview (refresh);
+			refresh.ValueChanged += (object sender, EventArgs e) => {
+				getData();
+				refresh.EndRefreshing();
+			};
+
 			TableView.ScrollsToTop = true;
+			getData ();
 		}
 	}
 }

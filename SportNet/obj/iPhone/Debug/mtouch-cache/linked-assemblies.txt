@@ -1,0 +1,11 @@
+/Users/dani/dev/SportNetMobile/SportNet/obj/iPhone/Debug/mtouch-cache/Link/monotouch.dll
+/Users/dani/dev/SportNetMobile/SportNet/obj/iPhone/Debug/mtouch-cache/Link/System.dll
+/Users/dani/dev/SportNetMobile/SportNet/obj/iPhone/Debug/mtouch-cache/Link/SportNet.Web.Models.dll
+/Users/dani/dev/SportNetMobile/SportNet/obj/iPhone/Debug/mtouch-cache/Link/SportNet.exe
+/Users/dani/dev/SportNetMobile/SportNet/obj/iPhone/Debug/mtouch-cache/Link/Newtonsoft.Json.dll
+/Users/dani/dev/SportNetMobile/SportNet/obj/iPhone/Debug/mtouch-cache/Link/mscorlib.dll
+/Users/dani/dev/SportNetMobile/SportNet/obj/iPhone/Debug/mtouch-cache/Link/SDWebImage.dll
+/Users/dani/dev/SportNetMobile/SportNet/obj/iPhone/Debug/mtouch-cache/Link/MonoTouch.FacebookConnect.dll
+/Users/dani/dev/SportNetMobile/SportNet/obj/iPhone/Debug/mtouch-cache/Link/System.Core.dll
+/Users/dani/dev/SportNetMobile/SportNet/obj/iPhone/Debug/mtouch-cache/Link/System.Runtime.Serialization.dll
+/Users/dani/dev/SportNetMobile/SportNet/obj/iPhone/Debug/mtouch-cache/Link/Google.Plus.dll
